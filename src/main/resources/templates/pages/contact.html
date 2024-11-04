@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Contact</title>
+</head>
+
+<body background="../assets/images/bg1.png">
+    <header>
+        <nav>
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <a href="/index"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <ul class="navbar-links">
+                    <li><a href="/index">ACCUEIL</a></li>
+                    <li><a href="../pages/entrainement.html">ENTRAINEMENTS</a></li>
+                    <li><a href="../pages/nutrition.html">NUTRITION</a></li>
+                    <li><a href="../pages/documentaire.html">DOCUMENTAIRES</a></li>
+                    <li><a href="../pages/contact.html">CONTACT</a></li>
+                </ul>
+                <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <button id="connect"><a href="/inscription">SE CONNECTER</a></button>
+            </div>  
+        </nav> 
+    </header>
+<main>
+<div id="homePage" >
+    <div id="container"> 
+        <h2 id="onResteConnectees">ON RESTE CONNECTEES</h2>
+
+        <img id="femmeQuiCourt" src="../assets/images/img1.png" alt="Femme qui court">
+
+        <form class="contactForm" method="post" >
+
+            <label id="contactNom" for="contactNom">
+                <h3>NOM</h3>
+            </label>
+            <br>
+            <input id="contactInputNom" type="text" required minlength="4" maxlength="15" size="10" placeholder="DOE">
+            <div class="errorText">Vous devez inscrire un nom</div>
+            <br><br>
+            <label id="contactAdresseMail" for="contactAdresseMail">
+                <h3>ADRESSE MAIL</h3>
+            </label>
+            <br>
+            <input id="contactInputMail" type="email" size="30" required placeholder="johana.doe@exemple.com">
+            <div class="errorText">Vous devez inscrire une adresse email valide</div>
+            <br><br>
+            <label id="contactMessage" for="contactMessage">
+                <h3>MESSAGE</h3>
+            </label>
+            <br>
+            <textarea name="contactTexte" id="contactTexte" style="width: 400px; height: 200px;" placeholder="Veuillez écrire votre message"></textarea>
+            <div class="errorText">Vous ne pouvez pas envoyer un message sans texte</div>
+            <br><br>
+            <button type="submit" class="button">ENVOYER</button>
+
+        </form>
+
+        <div id="carre"></div>
+        <br><br>
+
+    </div>
+</div>
+   <script src="../assets/Javascript/js.js"></script> 
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="../assets/contact.js"></script>
+</main>
+    <footer>
+        <div class="footer-container">
+            <div class="left">                
+                <div class="logo">
+                <div class="logo-container">
+                    <a href="/index"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <div class="social-media">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                </div>
+            </div>
+            <div class="center subscribe p">
+                <p>Adresse: 15 rue henri  chevreau,75011,Paris</p>
+                <p>Tel: 0467897678</p>
+                <p>Email: contact@sportfemme.com</p>
+            </div>
+            <div class="right">
+                <div class="subscribe">
+                    <h3>Abonnez vous</h3>
+                    <p>Entrez votre email ici pour recevoir des notifications</p>
+                    <form>
+                        <div class="input">
+                            <input type="email" class="inputtext">
+                            <input type="button" value="S'INSCRIRE" class="button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+               
+            </div>       
+        </div>
+        <hr>
+        <div class="copyright">
+            <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
+        </div>
+    </footer>
+</body>
+</html>

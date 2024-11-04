@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Nutrition-SportFemme</title>
+</head>
+<body background="../assets/images/N26.jpg">
+    <header>
+        <nav>
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <a href="../index.html"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <ul class="navbar-links">
+                    <li><a href="../index.html">ACCUEIL</a></li>
+                    <li><a href="../pages/entrainement.html">ENTRAINEMENTS</a></li>
+                    <li><a href="../pages/nutrition.html">NUTRITION</a></li>
+                    <li><a href="../pages/documentaire.html">DOCUMENTAIRES</a></li>
+                    <li><a href="../pages/contact.html">CONTACT</a></li>
+                </ul>
+                <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <button id="connect"><a href="../pages/inscription.html">SE CONNECTER</a></button>
+            </div>  
+        </nav>
+    </header>
+    <main>
+      
+     <div id="homePage" >
+        <div id="container">
+            <div class="h1left"><h1>NUTRITION</h1></div>
+            <div id="filter">
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'all', 'style2')">Tout</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Faible en calories et en graisse', 'style2')">Faible en calories et en graisse</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Sans noix', 'style2')">Sans noix</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Sans lactose', 'style2')">Sans lactose</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Glucides peu fermentescibles', 'style2')">Glucides peu fermentescibles</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Sans gluten', 'style2')">Sans gluten</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Végétalien', 'style2')">Végétalien</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Végétarien', 'style2')">Végétarien</button>
+                <button class="button-filter button-filter2"  onclick="articlesAffiche(articles2, 'articles2-container', 'Original', 'style2')">Original</button>
+            </div>
+            <div id="articles2-container"></div>
+    
+        </div>
+     </div>
+        <script src="../assets/Javascript/js.js"></script>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="left">                
+                <div class="logo">
+                <div class="logo-container">
+                    <a href="../index.html"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <div class="social-media">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                </div>
+            </div>
+            <div class="center subscribe p">
+                <p>Adresse: 15 rue henri  chevreau,75011,Paris</p>
+                <p>Tel: 0467897678</p>
+                <p>Email: contact@sportfemme.com</p>
+            </div>
+            <div class="right">
+                <div class="subscribe">
+                    <h3>Abonnez vous</h3>
+                    <p>Entrez votre email ici pour recevoir des notifications</p>
+                    <form>
+                        <div class="input">
+                            <input type="email" class="inputtext">
+                            <input type="button" value="S'INSCRIRE" class="button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+               
+            </div>       
+        </div>
+        <hr>
+        <div class="copyright">
+            <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
+        </div>
+    </footer>
+</body>
+</html>

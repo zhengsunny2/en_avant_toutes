@@ -1,0 +1,981 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:"IBM Plex Sans Condensed", sans-serif;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style-type: none;
+}
+
+.navbar-container a {
+  color: var(--blanc);
+  text-decoration: none;
+}
+
+:root {
+  --bluesky:#00A0B0;
+  --vert: #CAF83E;
+  --pink: #FEA2B9;
+  --thistle: #00373E;
+  --blanc: #fff;
+  --black: #000;
+  --light-grey: #bbbbbb40;
+
+}
+
+/*header*/
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 35px;
+  background-position: center top;
+  background-blend-mode: multiply;
+}
+
+.navbar-links-box{
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 30px;
+align-items: center;
+text-align: center;
+}
+
+.navbar-links {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content:center;
+align-items: center;
+text-align: center;
+}
+
+.navbar-links a{
+  color: var(--blanc);
+  font-size: 30px;
+  font-family: "Bebas Neue" ;
+  font-weight: 700;
+  cursor: pointer;
+  transform: scale(1);
+}
+
+.navbar-links a:hover {
+  padding: 10px;
+  transform: scale(1.2);
+  text-decoration: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  transition:width 500ms;
+  transition-delay: 0,200ms;
+  color: var(--blanc);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: var(--vert);
+  border:2px var(--vert) solid;
+}
+
+.iconCompte{
+  color: var(--thistle);
+  font-size: 20px;
+  font-weight: lighter;
+  width: 55px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--blanc);
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iconCompte:hover{
+  color: var(--blanc);
+  background-color: var(--thistle);
+}
+
+.navbar-container button{
+  width: 250px;
+cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: var(--vert);
+  color: var(--thistle);
+  padding: 5px;
+  font-size: 18px;
+  transform: scaleX(0.7); 
+  display: inline-block; 
+  font-weight: 600;
+}
+
+.navbar-container button:hover{  
+  background-color: var(--thistle);
+  color: var(--vert);
+}
+
+.profil {
+  display: flex;
+  flex-direction: row;
+  justify-content:end;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  gap: 30px;
+}
+
+
+.logo-container img {
+  width: 80px;
+
+}
+.profil-picture-container{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--blanc);
+  cursor: pointer;
+}
+.profil-picture-container img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.profil-picture-container:hover{
+  background-color:var(--thistle);
+  color: var(--blanc);
+}
+/*header fini*/
+
+/*login*/
+#logincontainer{
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.page {
+  background-color:rgba(0, 160, 176, 0.3);
+  padding: 50px 50px 30px 50px ;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  margin-top: 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 20px;
+}
+
+#logincontainer div {
+  margin-bottom: 15px;
+}
+
+#logincontainer label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--blanc);
+}
+
+#logincontainer input{
+  width: 400px;
+  padding: 10px;
+  box-sizing: border-box;
+  border:none;
+  background-color:rgba(252, 253, 253, 0.5);
+}
+
+#logincontainer p {
+  text-align: left;
+  margin-top: 20px;
+  color: var(--blanc);
+}
+
+#logincontainer a {
+  color: var(--blanc);
+  text-decoration: none;
+}
+
+#logincontainer a:hover {
+  text-decoration: underline;
+}
+
+#logincontainer button {
+display: block;
+margin: auto;
+}
+
+#logincontainer img {
+  width: 400px;
+  position: absolute;
+  left: 100px;
+  top: 250px;
+  z-index: 1;
+}
+
+/*login fini*/
+
+/*juliette*/
+
+.accueil-texte {
+  font-family: "Bebas Neue", sans-serif;
+  color: var(--bluesky);
+}
+
+/* PAGE ACCUEIL MAIN */
+
+/* Partie 1 */
+.accueil-animation {
+  max-width: 1400px;
+  max-height: 1200px;
+  margin: 10px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.accueil-course-logo {
+  animation: logoCourse 2s infinite;
+}
+
+@keyframes logoCourse {
+
+  50% {
+    translate: 153px;
+  }
+
+  100% {
+    rotate: 100px;
+  }
+}
+
+.accueil-image-enAvantToutes {
+  animation: rouladeImage 2s infinite;
+}
+
+@keyframes rouladeImage {
+  20%{
+    translate : 50px;
+  }
+  50% {
+ translate: 100px;
+  }
+
+  100% {
+    rotate: center -10deg;
+    translate: 600px;
+    scale: 1.5;
+  }
+}
+
+/* Partie 2 */
+.accueil-peleMele {
+  max-width: 1400px;
+  max-height: 1200px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 10px;
+  margin: auto;
+}
+
+#accueil-main {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+  grid-column: 1/2;
+  grid-row: 1/3;
+}
+
+#accueil-portrait-trois {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+#accueil-femme-tapis {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+#accueil-tapis-alteres {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 3/4;
+  grid-row: 1/2;
+}
+
+#accueil-femme-montre {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 4/5;
+  grid-row: 1/3;
+}
+
+#accueil-dos-altere {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 3/4;
+  grid-row: 2/5;
+}
+
+#accueil-yoga {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 4/5;
+  grid-row: 3/5;
+}
+
+#accueil-groupe-entrainement {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 1/2;
+  grid-row: 4/5;
+}
+
+#accueil-personnes-chaussures {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  grid-column: 2/3;
+  grid-row: 4/5;
+}
+
+#accueil-texte {
+  width: 100%;
+  max-height: 100%;
+  grid-column: 1/3;
+  grid-row: 3/4;
+  padding: 5%;
+  font-size: 150%;
+}
+
+#accueil-rejoignez{
+  font-family: "Bebas Neue", sans-serif;
+  text-align: center;
+  font-size: 230%;
+  color: #3cb4d9;
+  margin: 3%;
+}
+
+#resterMotivee,
+#motivee,
+#connectee {
+  font-family: "Bebas Neue", sans-serif;
+  font-style: italic;
+  font-size: 200%;
+  color: #3cb4d9;
+  margin-left: 10px;
+}
+
+/* PARTIE 3 */
+
+
+.accueil-presentation {
+  max-width: 1400px;
+  max-height: 1200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin: auto;
+  padding: 50px;
+}
+
+#accueil-presentation-motivee-texte {
+
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 100%;
+  max-height: 100%;
+  font-size: 150%;
+}
+
+#accueil-presentation-motivee-image {
+  object-fit: cover;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  width: auto;
+  padding-left: 20%;
+}
+
+#accueil-presentation-connectee-texte {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 100%;
+  max-height: 100%;
+  font-size: 150%;
+}
+
+#accueil-presentation-connectee-image {
+  object-fit: cover;
+  grid-column: 1/2;
+  grid-row: 2/3;
+
+}
+
+
+
+
+
+/* CONTACT */
+
+#carre{
+  height: 530px;
+    width: 500px;
+    background: var(--bluesky);
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.contactForm{
+  position: absolute;
+  margin-left: 18%;
+  margin-top: 160px;
+  color: var(--bluesky);
+}
+#femmeQuiCourt{
+  position: absolute;
+ margin-left: -550px;
+ margin-top: 100px;
+}
+
+#onResteConnectees{
+  font-family: "Bebas Neue", sans-serif;
+  font-style: italic;
+  font-size: 200%;
+  color: #3cb4d9;
+  text-align: center;
+  margin: 2%;
+}
+
+#contactNom,
+#contactAdresseMail,
+#contactMessage{
+  display: inline-block;
+font-family: "Bebas Neue", sans-serif;
+font-style: italic;
+color: #3858A7;
+}
+
+#contactInputNom,
+#contactInputMail,
+#contactTexte{
+  font-family: "Bebas Neue", sans-serif;
+  color: var(--bluesky);
+  border-color: var(--bluesky);
+  /* appearance: none;
+  border-style:none; */
+  outline: 1px solid var(--bluesky);
+}
+.errorText{
+  color: #3cb4d9;
+  display: none;
+}
+/* julliete fini*/
+
+
+
+
+/*topic*/
+
+#container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  /*
+  background-image: url("../images/bg.png");
+ background-attachment: scroll;
+background-position: center center;
+background-size: cover;
+background-repeat:no-repeat;
+background-origin: border-box;
+*/
+margin: 0 auto;
+align-items: center;
+}
+
+.button-h1{
+  background-color: var(--blanc);
+  border: none;
+  width: 350px;
+  height: 80px;
+  margin: 30px auto; 
+color: var(--bluesky);
+text-align: center;
+font-size: 30px;
+font-weight: 700;
+font-family:"Bebas Neue";
+
+}
+
+#articles-container, #articles2-container,#articles3-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:start;
+  padding: 20px;
+}
+
+
+.article {
+    position: relative;
+    width: 385px; 
+    height: 253px;
+    overflow: hidden;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.large-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+object-fit: cover;
+border: none;
+object-position: center;
+}
+
+.small-image-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 70px 140px; 
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+    transition: opacity 0.5s ease;
+}
+
+
+.small-image {
+    display: block;
+    width: 50px; 
+    height: 50px;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+    
+}
+
+
+.articlebg{
+      width: 100%;
+    height: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px auto;
+}
+
+.article:hover .overlay {
+    transform: translateY(0);
+}
+
+.article:hover .small-image-wrapper {
+    opacity: 0; 
+}
+
+
+ .info {
+  display: flex;
+  justify-content: space-between;
+  color: var(--blanc);
+  gap: 40px;
+}
+
+
+.article.style1 {
+  box-shadow: 0 0 10px var(--bluesky);
+}
+
+.small-image-wrapper.style1 {
+  border: 1px solid var(--bluesky);
+}
+
+.overlay.style1 {
+  background-color: rgba(0, 123, 255, 0.5); 
+}
+
+
+.article.style2 {
+  box-shadow: 0 0 10px var(--vert);
+}
+
+.small-image-wrapper.style2 {
+  border: 1px solid var(--vert);
+}
+
+.overlay.style2 {
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
+
+.article.style3 {
+  box-shadow: 0 0 10px var(--pink);
+}
+
+.small-image-wrapper.style3 {
+  border: 1px solid var(--pink);
+}
+
+.overlay.style3 {
+  background-color: rgba(255, 20, 147, 0.5);
+}
+
+#filter{
+  display: flex;
+flex-wrap: wrap;
+justify-content: start;
+width: 100%;
+margin-left:75px;
+margin-top: 30px;
+
+}
+ .button-filter {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+  0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.3s;
+}
+.button-filter1{
+  background-color: var(--bluesky);
+  border: 2px solid var(--bluesky);
+}
+.button-filter2{
+  background-color: var(--vert);
+  border: 2px solid var(--vert);
+}
+.button-filter3{
+  background-color: var(--pink);
+  border: 2px solid var(--pink);
+}
+
+.button-filter:hover {
+  background-color: var(--thistle);
+}
+
+/*topic fini*/
+
+
+/*profil*/
+h1{
+  color: var(--blanc);
+  font-size: 100px;
+  font-family:"Bebas Neue";
+  font-weight: 700;
+  margin-left: 20px;
+  display: flex;
+  justify-content:left;
+}
+.h1left{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 100%;
+  margin-left: 48px;
+  margin-top: 50px;
+}
+.profilebg{
+ 
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+#profil {
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+
+}
+
+#userbanner, #score, #prefere, #sesvideos {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#userbanner {
+  height: 168px;
+  background-color: var(--bluesky);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.rond {
+  margin-top: 30px;
+  height: 153px;
+  width: auto;
+}
+
+.profil-h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  position: relative; 
+  width: 200px;
+  height: 200px; 
+}
+
+.image-container button{
+  width: 200px;
+  margin-top: 30px;
+}
+
+.image1 {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image2 {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  bottom: 0; 
+  bottom: -20PX;
+  left: 70PX;
+  height: auto;
+}
+
+
+#score {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#userbanner h3,#profil h3 {
+  font-size: 40px;
+  color: var(--blanc);
+  font-family: "Bebas Neue";
+}
+
+#score h4 {
+  font-size: 25px;
+  color: var(--thistle);
+  font-family: "Bebas Neue";
+}
+
+
+
+.scorebox {
+  width: 282px;
+  height: 124px;
+  border: none;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+#prefere img, #sesvideos img {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 30px;
+  font-family: "Bebas Neue";
+  text-align: left;
+  width: 100%; 
+  box-sizing: border-box; 
+  margin-left: 50px;
+}
+
+.flexwrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; 
+}
+.flexrow{
+width: 100%;
+display: flex;
+flex-direction:row;
+justify-content: space-between;
+}
+.plus {
+  font-style: italic;
+  font-size: 25px;
+  color: var(--blanc);
+  font-weight: 700;
+  font-family: "Bebas Neue";
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+}
+
+#sesvideos {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+/*profil fini*/
+
+
+/*footer*/
+
+.logo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 20px;
+}
+.logo .logo-container img {
+  width: 100px;
+}
+
+footer {
+  background-color: var(--bluesky);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60PX 0px 60px;
+}
+
+.left {
+  width: 33%;
+}
+
+
+.center{
+  width: 33%;
+}
+
+.right{
+  width: 33%;
+}
+
+.social-media {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--blanc);
+  font-size: 22px;
+}
+
+.subscribe h3 {
+  color: var(--blanc);
+  font-family:"IBM Plex Sans", sans-serif;
+}
+
+.inputtext {
+  border: none;
+  outline: none;
+  background-color: var(--blanc);
+  width: 300px;
+  height: 40px;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button {
+  cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: var(--vert);
+    color: var(--thistle);
+    font-size: 16px;
+    margin-right: 20px;
+    width: 200px;
+    height: 40px;
+
+  }
+  .button:hover{  
+    background-color: var(--thistle);
+    color: var(--vert);
+  }
+
+.subscribe p{
+  color: var(--blanc);
+  line-height: 30px;
+}
+
+footer hr {
+  margin: 15px;
+  color: var(--blanc);
+}
+
+.copyright {
+  color: var(--thistle);
+  padding: 0px 50px 25px 50px;
+  font-size: 12px;
+  text-align: center;
+}
+
+/*footer*/

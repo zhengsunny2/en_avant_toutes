@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de l'Administration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+   
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+   
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #f4f4f4;
+        }
+
+        .data-table td {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- siderbar -->
+    <div class="sidebar">
+        <a href="#videos" onclick="showSection('videos')">Gérer les vidéos</a>
+        <a href="#utilisateurs" onclick="showSection('utilisateurs')">Gérer les comptes utilisateurs</a>
+        <a href="#messages" onclick="showSection('messages')">Gérer les messages</a>
+        <a href="#commentaires" onclick="showSection('commentaires')">Gérer les commentaires</a>
+    </div>
+
+    <!-- content right -->
+    <div class="content">
+        <!-- chercher -->
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Rechercher...">
+            <button onclick="search()">Rechercher</button>
+        </div>
+
+        <!-- table -->
+        <div id="videos" class="section" style="display: none;">
+            <h2>Gestion des vidéos</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Utilisateur</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Introduction à JavaScript</td>
+                        <td>LILI</td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Les bases du CSS</td>
+                        <td>LILI</td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="utilisateurs" class="section" style="display: none;">
+            <h2>Gestion des comptes utilisateurs</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Nom</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="utilisateur:${utilisateurs}">
+                        <td th:text="${utilisateur.id}"></td>
+                        <td th:text="${utilisateur.email}"></td>
+                        <td th:text="${utilisateur.password}"></td>
+                        <td th:text="${utilisateur.nom}"></td>
+                        <td th:text="${utilisateur.phone}"></td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="messages" class="section" style="display: none;">
+            <h2>Gestion des messages</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Message</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Bonjour, j'ai une question sur le produit X.</td>
+                        <td>
+                            <button>Repondre</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Merci pour votre réponse rapide !</td>
+                        <td>
+                            <button>Repondre</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="commentaires" class="section" style="display: none;">
+            <h2>Gestion des commentaires</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Commentaire</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Ce produit est vraiment super !</td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Je ne suis pas satisfait du service client.</td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function search() {
+            const query = document.getElementById('search-input').value;
+            alert('Recherche pour: ' + query);
+        }
+    </script>
+</body>
+
+</html>
