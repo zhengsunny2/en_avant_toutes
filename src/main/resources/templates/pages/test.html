@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory and Video Management</title>
+    <style>
+        .response {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Directory</h1>
+        <form id="addCategoryForm" method="POST" action="/add-category">
+            <!-- Category Type -->
+            <label for="categorieEnum">Category Type:</label>
+            <select id="categorieEnum" name="categorieEnum" required>
+                <option value="">Select Category Type</option>
+                <option value="ENTRAINEMENT">Entrainement</option>
+                <option value="NUTRITION">Nutrition</option>
+                <option value="DOCUMENTAIRE">Documentaire</option>
+            </select>
+    
+            <!-- Category (Categorie) -->
+            <label for="categorie">Category:</label>
+            <select id="categorie" name="categorie">
+                <option value="">Select Category</option>
+            </select>
+            <button type="button" id="addCategorieBtn">Add New Category</button>
+    
+            <!-- SousCategorie (SousCategorie) -->
+            <label for="sousCategorie">SousCategorie:</label>
+            <select id="sousCategorie" name="sousCategorie" required>
+                <option value="">Select SousCategorie</option>
+            </select>
+            <button type="button" id="addSousCategorieBtn">Add New SousCategorie</button>
+    
+            <button type="submit">Add Directory</button>
+        </form>
+        <div id="categoryResponse" class="response"></div>
+    </div>
+
+    <script>
+        const apiBaseUrl = "http://localhost:8080";
+
+        // Fetch categories based on selected category type
+        document.getElementById('categorieEnum').addEventListener('change', function() {
+            const selectedType = this.value;
+            const categorieSelect = document.getElementById('categorie');
+            const sousCategorieSelect = document.getElementById('sousCategorie');
+
+            // Reset options
+            categorieSelect.innerHTML = '<option value="">Select Category</option>';
+            sousCategorieSelect.innerHTML = '<option value="">Select SousCategorie</option>';
+
+            if (selectedType) {
+                fetch(`${apiBaseUrl}/categories/${selectedType}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to fetch categories");
+                        return response.json();
+                    })
+                    .then(categories => {
+                        categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;
+                            option.textContent = category.name;
+                            categorieSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error("Error fetching categories:", error));
+            }
+        });
+
+        // Add new category
+        document.getElementById('addCategorieBtn').addEventListener('click', function() {
+            const categoryType = document.getElementById('categorieEnum').value;
+
+            if (categoryType) {
+                const newCategoryName = prompt("Enter new category name:");
+                if (newCategoryName) {
+                    fetch(`${apiBaseUrl}/add-category`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: newCategoryName, type: categoryType })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to add category");
+                        return response.json();
+                    })
+                    .then(() => {
+                        alert("Category added successfully!");
+                        document.getElementById('categorieEnum').dispatchEvent(new Event('change'));
+                    })
+                    .catch(error => console.error("Error adding category:", error));
+                }
+            } else {
+                alert("Please select a category type first.");
+            }
+        });
+
+        // Add new SousCategorie
+        document.getElementById('addSousCategorieBtn').addEventListener('click', function() {
+            const categoryType = document.getElementById('categorieEnum').value;
+            const categorieId = document.getElementById('categorie').value;
+
+            if (categoryType && categorieId) {
+                const newSousCategorieName = prompt("Enter new SousCategorie name:");
+                if (newSousCategorieName) {
+                    fetch(`${apiBaseUrl}/categories/${categorieId}/add-sousCategorie`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: newSousCategorieName })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to add SousCategorie");
+                        return response.json();
+                    })
+                    .then(() => {
+                        alert("SousCategorie added successfully!");
+                        document.getElementById('categorie').dispatchEvent(new Event('change'));
+                    })
+                    .catch(error => console.error("Error adding SousCategorie:", error));
+                }
+            } else {
+                alert("Please select a category type and category first.");
+            }
+        });
+
+        // Submit the form
+        document.getElementById('addCategoryForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch(`${apiBaseUrl}/add-directory`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseDiv = document.getElementById('categoryResponse');
+                if (data.success) {
+                    responseDiv.textContent = "Directory added successfully!";
+                    responseDiv.className = "response success";
+                } else {
+                    responseDiv.textContent = "Failed to add directory.";
+                    responseDiv.className = "response error";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const responseDiv = document.getElementById('categoryResponse');
+                responseDiv.textContent = "Error adding directory.";
+                responseDiv.className = "response error";
+            });
+        };
+    </script>
+</body>
+</html>

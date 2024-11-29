@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -33,35 +33,35 @@
     <main>
         <div id="logincontainer">
             <div><img src="../assets/images/img1.png" alt=""></div>
-            <form method="post" action="/utilisateur" id="connectPage" style="display: block;">
+            <form method="post" action="/inscription/login" id="connectPage" style="display: block;">
                 <h1>CONNEXION</h1>
                 <div class="page">
                 <div>
                     <label for="connectUser">E-MAIL</label>
-                    <input type="text" id="connectUser" name="email">
+                    <input type="text" id="connectUser" name="username">
                 </div>
                 <div>
                     <label for="connectPassword">MOT DE PASS</label>
                     <input type="password" id="connectPassword" name="password">
                     <P>Mot de passe oublié?</P>
                 </div>
-                <button id="connectButton" class="button">CONNECT</button>
+                <button id="connectButton" type="button"  class="button" >CONNECT</button>
                 <a href="javascript:void(0)" id="newUserLink">Créer un compte!</a>
                 </div>
             </form>
     
-            <form method="post" action="/utilisateur_add" id="inscrirePage" style="display: none;">
+            <form method="post" action="/inscription/register" id="inscrirePage" style="display: none;">
                 <h1>INSCRIRE</h1>
                 <div class="page" >
                 <div>
                     <label for="inscrireUser">E-MAIL</label>
-                    <input type="text" id="inscrireUser" name="email">
+                    <input type="text" id="inscrireUser" name="username">
                 </div>
                 <div>
                     <label for="inscrirePassword">MOT DE PASS</label>
                     <input type="password" id="inscrirePassword" name="password">
                 </div>
-                <button type="submit" id="inscrireButton" class="button">S'INSCRIRE</button>
+                <button type="button"  id="inscrireButton" class="button">S'INSCRIRE</button>
                 <a href="javascript:void(0)" id="connectpage">Retour à la connexion!</a>
                  </div>
             </div>

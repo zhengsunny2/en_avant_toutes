@@ -4,15 +4,17 @@ package com.sportfemme.en_avant_toutes.model;
 
 
 
-import java.util.List;
 
 import com.sportfemme.en_avant_toutes.utils.enums.CategorieEnum;
 
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,8 +26,24 @@ import lombok.NoArgsConstructor;
 public class Categorie  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private CategorieEnum nom;
+   private Long id;
+   @Enumerated(EnumType.STRING)
+   @Column(unique = true, nullable = false)
+   private CategorieEnum name;
+
+
+/* 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Categorie parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Categorie> categories= new ArrayList<>();;
+
     @OneToMany(mappedBy = "categorie")
-    private List<Video> videos;
+    private List<SousCategorie> sousCategories= new ArrayList<>();;
+
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Video> videos = new ArrayList<>();
+    */
 }

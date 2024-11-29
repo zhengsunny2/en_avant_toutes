@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -96,7 +96,7 @@
     <!-- siderbar -->
     <div class="sidebar">
         <a href="#videos" onclick="showSection('videos')">Gérer les vidéos</a>
-        <a href="#utilisateurs" onclick="showSection('utilisateurs')">Gérer les comptes utilisateurs</a>
+        <a href="#users" onclick="showSection('users')">Gérer les comptes users</a>
         <a href="#messages" onclick="showSection('messages')">Gérer les messages</a>
         <a href="#commentaires" onclick="showSection('commentaires')">Gérer les commentaires</a>
     </div>
@@ -117,7 +117,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Titre</th>
-                        <th>Utilisateur</th>
+                        <th>User</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -144,26 +144,27 @@
             </table>
         </div>
 
-        <div id="utilisateurs" class="section" style="display: none;">
-            <h2>Gestion des comptes utilisateurs</h2>
+        <div id="users" class="section" style="display: none;">
+            <h2>Gestion des comptes users</h2>
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Email</th>
                         <th>Password</th>
-                        <th>Nom</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
+                        <th>Username</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="utilisateur:${utilisateurs}">
-                        <td th:text="${utilisateur.id}"></td>
-                        <td th:text="${utilisateur.email}"></td>
-                        <td th:text="${utilisateur.password}"></td>
-                        <td th:text="${utilisateur.nom}"></td>
-                        <td th:text="${utilisateur.phone}"></td>
+                    <tr th:each="user:${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.password}"></td>
+                        <td th:text="${user.username}"></td>
+                       
+
+                       
                         <td>
                             <button>Editer</button>
                             <button class="delete">Supprimer</button>

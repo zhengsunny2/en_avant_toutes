@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Details</title>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${video.titre}">Video Title</h1>
+<p th:text="${video.description}">Video description goes here...</p>
+<video controls width="640">
+    <source th:src="@{${videoPageUrl}}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    </div>
+</body>
+</html>

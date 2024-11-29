@@ -1,4 +1,4 @@
-package com.sportfemme.en_avant_toutes.service;
+package com.sportfemme.en_avant_toutes.service.impl;
 
 
 import java.util.List;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.sportfemme.en_avant_toutes.model.Utilisateur;
 
 import com.sportfemme.en_avant_toutes.repository.UtilisateurRepository;
+import com.sportfemme.en_avant_toutes.service.UtilisateurService;
 @Component
 public class UtilisateurServiceImpl implements UtilisateurService {
 
@@ -20,7 +21,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
    @Override
    public Utilisateur save(Utilisateur utilisateur) {
-       Utilisateur u = this.findByEmail(utilisateur.getEmail());
+       Utilisateur u = this.findByUsername(utilisateur.getUsername());
        if(u==null) {
            utilisateurRepository.save(utilisateur);
            return utilisateur;
@@ -54,6 +55,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
             return null;
     }
+    @Override
+    public Utilisateur findByUsername(String username) {
+        for(Utilisateur utilisateur:utilisateurRepository.findAll()){
+            if (utilisateur.getUsername().equalsIgnoreCase(username)) {
+                return utilisateur;
+            }
+        }
+            return null;
+    }
  
     @Override
     public boolean active(String email) {
@@ -72,7 +82,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             utilisateurRepository.delete(utilisateur);
         }
     }
+
+    @Override
+    public Utilisateur findByEmailAndPassword(String email,String password){
+        for(Utilisateur utilisateur:utilisateurRepository.findAll()){
+            if (utilisateur.getEmail().equalsIgnoreCase(email) && utilisateur.getPassword().equalsIgnoreCase(password)) {
+                return utilisateur;
+            }
+        }
+            return null;
     }
+    }
+    
 
 
 

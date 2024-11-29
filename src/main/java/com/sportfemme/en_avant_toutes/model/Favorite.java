@@ -21,6 +21,7 @@ public class Favorite{
     private long id;
     @ManyToOne
     private Utilisateur utilisateur;
+
     @ManyToOne
     private Video video;
 

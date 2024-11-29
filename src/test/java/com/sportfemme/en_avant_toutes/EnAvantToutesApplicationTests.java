@@ -6,8 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class EnAvantToutesApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        System.out.println("test");
 
-}
+    }
+    }
+
+

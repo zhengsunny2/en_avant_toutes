@@ -19,6 +19,7 @@ public class Comment {
     private long id;
     @ManyToOne
     private Utilisateur utilisateur;
+
     @ManyToOne
     private Video video;
     private int note;

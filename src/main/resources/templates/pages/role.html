@@ -23,10 +23,19 @@
     </form>
 
     <table>
-        <th>email</th>
+        <th>username</th>
+        <th>password</th>
+        <tr th:each="user:${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+        </tr>
+    </table>
+
+    <table>
+        <th>username</th>
         <th>password</th>
         <tr th:each="utilisateur:${utilisateurs}">
-            <td th:text="${utilisateur.email}"></td>
+            <td th:text="${utilisateur.username}"></td>
             <td th:text="${utilisateur.password}"></td>
         </tr>
     </table>
