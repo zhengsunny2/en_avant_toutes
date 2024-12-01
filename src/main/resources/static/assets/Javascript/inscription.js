@@ -46,7 +46,7 @@ fetch('http://localhost:8080/inscription/login', {
                     }
              localStorage.setItem('authToken', data.token);
             alert(`Bienvenue, ${username}!`);
-            window.location.href = 'http://localhost:8080/profil';
+            window.location.href = 'http://localhost:8080/index';
                 }
                 else if (data.status==404)
                 {
@@ -65,23 +65,32 @@ document.getElementById('inscrireButton').addEventListener('click', function() {
 
     if(!username || !password) 
         return alert('Entrez username or password correct!');
-    fetch('http://localhost:8080/inscription/register',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({username, password })
+    fetch('http://localhost:8080/inscription/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
     })
-    .then(response=>{
-        if(!response.ok)throw new Error("Invalid username or password");
-        return response.json();
+    .then(async response => {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(`Server response: ${text}`);
+        }
     })
-    .then( data =>{
-          localStorage.setItem('authToken',data.token);
-            alert('Inscription réussie!');
-            loginPage();
+    .then(data => {
+        console.log('Parsed JSON Data:', data);
+        localStorage.setItem('authToken', data.token);
+        alert('Inscription réussie!');
+        loginPage();
     })
-    .catch(err=>alert(err.message))
+    .catch(err => {
+        console.error('Error:', err);
+        alert(`Registration failed: ${err.message}`);
+    });
+    
 });
-
 // Update header based on login status
 function updateHeader() {
     const authToken = localStorage.getItem('authToken');
@@ -111,28 +120,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //+ d'infos sur les cookies en javascript : https://www.quirksmode.org/js/cookies.html
-  function createCookie(name,value,days) {
+  function createCookie(name, value, days) {
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime()+(days2460601000));
-        var expires = "; expires="+date.toGMTString();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));  
+        var expires = "; expires=" + date.toGMTString();
+    } else {
+        var expires = "";
     }
-    else var expires = "";
-    document.cookie = name+"="+value+expires+"; path=/";
-    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
 
-    function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
-    }
 
-    function eraseCookie(name) {
-        createCookie(name,"",-1);
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
- 
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}

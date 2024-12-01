@@ -1,5 +1,91 @@
 package com.sportfemme.en_avant_toutes.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.sportfemme.en_avant_toutes.model.Categorie;
+import com.sportfemme.en_avant_toutes.model.SousCategorie;
+import com.sportfemme.en_avant_toutes.service.CategorieService;
+import com.sportfemme.en_avant_toutes.service.SousCategorieService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/categories")
+public class CategorieController {
+ @Autowired
+    private final CategorieService categorieService;
+    private final SousCategorieService sousCategorieService;
+
+    public CategorieController(CategorieService categorieService,SousCategorieService sousCategorieService) {
+        this.categorieService = categorieService;
+        this.sousCategorieService=sousCategorieService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Categorie>> findAllCategorie() {
+        List<Categorie> categories = categorieService.findAll();
+        return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping("/ajouter-categorie")
+
+public ResponseEntity<Map<String, Object>> addCategorie(@RequestBody Map<String, String> request) {
+    Map<String, Object> response = new HashMap<>();
+    try {
+        String name = request.get("name");
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Categorie name is required.");
+        }
+        Categorie newCategorie = categorieService.addCategorie(name);
+        response.put("success", true);
+        response.put("message", "Categorie added successfully.");
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        response.put("success", false);
+        response.put("message", "Error adding Categorie: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+}
+
+
+    @PostMapping("/{categorieId}/add-sousCategorie")
+
+    public ResponseEntity<Map<String, Object>> addSousCategorie(@PathVariable Long categorieId, @RequestBody Map<String, String> request) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            String name = request.get("name");
+            if (name == null || name.isEmpty()) {
+                throw new IllegalArgumentException("SousCategorie name is required.");
+            }
+            SousCategorie newSousCategorie = sousCategorieService.addSousCategorie(categorieId, name);
+            response.put("success", true);
+            response.put("message", "SousCategorie added successfully.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Error adding SousCategorie: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+    
+   
+    @GetMapping("/{categorieId}/sousCategories")
+    public ResponseEntity<List<SousCategorie>> findAllSousCategorie(@PathVariable Long categorieId)  {
+        List<SousCategorie> sousCategories = sousCategorieService.findByCategorieId(categorieId);
+        return ResponseEntity.ok(sousCategories);
+    }
+
+}
+
+  /* 
+
+  
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,20 +117,31 @@ import com.sportfemme.en_avant_toutes.utils.enums.CategorieEnum;
 public class CategorieController {
 
     private final CategorieService categorieService;
-    private final SousCategorieService sousCategorieService;
 
 
     @Autowired
-    public CategorieController(CategorieService categorieService , SousCategorieService sousCategorieService) {
-        this.categorieService = categorieService;
-        this.sousCategorieService = sousCategorieService;
-        
+    public CategorieController(CategorieService categorieService) {
+        this.categorieService = categorieService; 
     }
 
     @GetMapping("/categorie")
     public String categorie() {
         return "pages/categorie";
     }
+
+
+    @PostMapping("/add-category")
+public ResponseEntity<Map<String, Object>> addCategory(@RequestParam String name) {
+        // Create new category
+        Categorie categorie = new Categorie();
+        categorie.setName(CategorieEnum.fromString(name));
+        categorieService.save(categorie);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        return ResponseEntity.ok(response);
+    }
+
 
     @RequestMapping("/categories/{name}")
     public ResponseEntity<Optional<Categorie>> getCategories(@RequestParam(required = false) CategorieEnum name) {
@@ -56,17 +153,7 @@ public class CategorieController {
         return ResponseEntity.ok(categorieService.findAll());
     }
 
-    @PostMapping("/add-category")
-    public ResponseEntity<Map<String, Object>> addCategory(@RequestParam CategorieEnum name) {
-        // Create new category
-        Categorie categorie = new Categorie();
-        categorie.setName(name);
-        categorieService.save(categorie);
-        
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        return ResponseEntity.ok(response);
-    }
+
 
     @PostMapping("/add-sous-category")
     public ResponseEntity<Map<String, Object>> addSousCategory(@RequestBody SousCategorie sousCategorie) {
@@ -88,11 +175,6 @@ public class CategorieController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         }
-
-    }
-    
-
-    /* 
 
         @GetMapping("/categorie")
     public String categorie() {

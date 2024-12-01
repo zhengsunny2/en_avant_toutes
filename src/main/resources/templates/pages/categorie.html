@@ -5,153 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directory and Video Management</title>
     <style>
-        /* Existing CSS styles */
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Add New Directory</h1>
-        <form id="addCategoryForm" method="POST" action="/add-category">
-            <!-- Category Type -->
-            <label for="categorieEnum">Category Type:</label>
-            <select id="categorieEnum" name="categorieEnum" required>
-                <option value="">Select Category Type</option>
-                <option value="ENTRAINEMENT">Entrainement</option>
-                <option value="NUTRITION">Nutrition</option>
-                <option value="DOCUMENTAIRE">Documentaire</option>
-            </select>
-    
-            <!-- Category (Categorie) -->
-            <label for="categorie">Category:</label>
+        <form id="addCategorieForm" method="POST" action="/add-categorie">
+            <!-- categorie (Categorie) -->
+            <label for="categorie">Categorie:</label>
             <select id="categorie" name="categorie">
-                <option value="">Select Category</option>
+                <option value="">Select a Categorie</option>
             </select>
-            <button type="button" id="addCategorieBtn">Add New Category</button>
+            <button type="button" id="addCategorieBtn">Add New Categorie</button>
     
             <!-- SousCategorie (SousCategorie) -->
             <label for="sousCategorie">SousCategorie (SousCategorie):</label>
             <select id="sousCategorie" name="sousCategorie" required>
-                <option value="">Select SousCategorie</option>
+                <option value="">Select a SousCategorie</option>
             </select>
             <button type="button" id="addSousCategorieBtn">Add New SousCategorie</button>
     
             <button type="submit">Add Directory</button>
         </form>
-        <div id="categoryResponse" class="response"></div>
+        <div id="CategorieResponse" class="response"></div>
     </div>
     
     <script>
-        // Handle Category Type Selection
-        document.getElementById('categorieEnum').addEventListener('change', function() {
-            const selectedType = this.value;
-            const categorieSelect = document.getElementById('categorie');
-            const sousCategorieSelect = document.getElementById('sousCategorie');
-            categorieSelect.innerHTML = '<option value="">Select Category</option>'; // Reset category options
-            sousCategorieSelect.innerHTML = '<option value="">Select SousCategorie</option>'; // Reset SousCategorie options
-    
-            if (selectedType) {
-                // Fetch categories based on selected category type
-                fetch(`http://localhost:8080/categories/${selectedType}`)
-                    .then(response => response.json())
-                    .then(categories => {
-                        categories.forEach(category => {
-                            const option = document.createElement('option');
-                            option.value = category.id;
-                            option.textContent = category.name;
-                            categorieSelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching categories:', error));
+
+        function loadCategories() {
+            fetch('http://localhost:8080/categories')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch categories');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const CategorieSelect = document.getElementById('categorie');
+                    CategorieSelect.innerHTML = '<option value="">Select a Categorie</option>';
+                    data.forEach(Categorie => {
+                        const option = document.createElement('option');
+                        option.value = Categorie.id.toString();
+                        option.textContent = Categorie.name;
+                        CategorieSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });
+        }
+
+        window.onload = function() {
+            loadCategories();
+        };
+
+        function loadSubCategories(categorieId) {
+    fetch(`http://localhost:8080/categories/${categorieId}/sousCategories`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const subCategorieSelect = document.getElementById('sousCategorie');
+            subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
+            data.forEach(SousCategorie => {
+                const option = document.createElement('option');
+                option.value = SousCategorie.id; 
+                option.textContent = SousCategorie.name; 
+                subCategorieSelect.appendChild(option); 
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching subcategories:', error);
+        });
+}
+
+document.getElementById('categorie').addEventListener('change', function() {
+            const categorieId = parseInt(this.value, 10);  
+            if (categorieId) {
+                loadSubCategories(categorieId);
+            } else {
+                const subCategorieSelect = document.getElementById('sousCategorie');
+                subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
             }
         });
 
-        // Handle Add New Category Button
         document.getElementById('addCategorieBtn').addEventListener('click', function() {
-            const categoryType = document.getElementById('categorieEnum').value;
-            if (categoryType) {
-                const newCategoryName = prompt('Enter new category name:');
-                if (newCategoryName) {
-                    const formData = new FormData();
-            formData.append('name', newCategoryName);
-            formData.append('type', categoryType);
-
-            fetch('http://localhost:8080/add-category', {
-                method: 'POST',
-                body: formData // Use FormData to send the parameters
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Category added successfully');
-                    // Reload categories after adding new one
-                    document.getElementById('categorieEnum').dispatchEvent(new Event('change'));
-                } else {
-                    alert('Failed to add category');
-                }
-            })
-            .catch(error => console.error('Error adding category:', error));
-        }
-    } else {
-        alert('Please select a category type first.');
-    }
-});
-
-document.getElementById('addSousCategorieBtn').addEventListener('click', function() {
-            const categoryType = document.getElementById('categorieEnum').value;
-            const categorieId = document.getElementById('categorie').value;
-            if (categoryType && categorieId) {
-                const newCategoryName = prompt('Enter new category name:');
-                if (newCategoryName) {
-                    const formData = new FormData();
-                }
-            const sousCategorie = {
-                name: newCategoryName,
-                type: categoryType,
-                categorieId: categorieId
-            };
-fetch(`http://localhost:8080/{categorieId}/add-sousCategorie`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(sousCategorie)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Subcategory added successfully!');
-        })
-        .catch(error => {
-            console.error('Error adding subcategory:', error);
-            alert('Failed to add subcategory');
+            const newCategorieName = prompt('Enter new Categorie name:');
+            if (newCategorieName) {
+                fetch('http://localhost:8080/categories/ajouter-categorie', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newCategorieName })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Categorie added successfully!');
+                        loadCategories(); 
+                    } else {
+                        alert('Failed to add Categorie.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding Categorie:', error);
+                });
+            }
         });
-    }
-    else {
-        alert('Please select a category type and category first.');
-    }
-});
 
-        // Handle Form Submission
-        document.getElementById('addCategoryForm').onsubmit = function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-    
-            fetch('/add-directory', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('categoryResponse').innerText = "Directory added successfully!";
-                } else {
-                    document.getElementById('categoryResponse').innerText = "Failed to add directory.";
-                }
-            })
-            .catch(error => {
-                document.getElementById('categoryResponse').innerText = "Error: " + error.message;
-            });
-        }
+   
+        document.getElementById('addSousCategorieBtn').addEventListener('click', function() {
+            const categorieId = parseInt(document.getElementById('categorie').value, 10);
+            if (!categorieId) {
+                alert('Please select a Categorie first.');
+                return;
+            }
+            const newSousCategorieName = prompt('Enter new sousCategorie name:');
+             if (newSousCategorieName) {
+                fetch(`http://localhost:8080/categories/${categorieId}/add-sousCategorie`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newSousCategorieName })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('SubCategorie added successfully!');
+                        loadSubCategories(categorieId);
+                    } else {
+                        alert(data.message || 'Failed to add SousCategorie.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding subCategorie:', error);
+                });
+            }
+        });
     </script>
 </body>
 </html>

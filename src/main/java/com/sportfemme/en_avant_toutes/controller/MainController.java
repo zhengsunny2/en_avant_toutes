@@ -43,7 +43,20 @@ public class MainController {
     public String profil(){
         return "pages/profil";
     }
+    @GetMapping("/categorie")
+    public String categorie() {
+        return "pages/categorie";
+    }
 
+    @GetMapping("/video")
+    public String video() {
+        return "pages/video";
+    }
+
+    @GetMapping("/inscription")
+    public String inscription(){
+        return "pages/inscription";
+    }
     
 /* 
     @GetMapping("/inscription")

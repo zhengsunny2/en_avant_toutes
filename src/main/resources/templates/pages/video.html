@@ -101,6 +101,7 @@
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="titre">Title:</label>
             <input type="text" id="titre" name="titre" required>
+            <!--
             <label for="categorieEnum">Category Type:</label>
             <select id="categorieEnum" name="categorieEnum" required>
                 <option value="">Select Category Type</option>
@@ -108,17 +109,17 @@
                 <option value="NUTRITION">Nutrition</option>
                 <option value="DOCUMENTAIRE">Documentaire</option>
             </select>
-            
+            -->
             <label for="categorie">Select Category:</label>
             
 <select id="categorie" name="categorie" required>
-    <option value="">Select a categorrie</option>
+    <option value="">Select a category</option>
 </select>
 
 <label for="sousCategorie">Select a sousCategorie:</label>
             
 <select id="sousCategorie" name="sousCategorie" required>
-    <option value="">Select a sousCategorie</option>
+    <option value="">Select a sousCategory</option>
 </select>
 
             <label for="description">Description:</label>
@@ -139,7 +140,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const categorySelect = document.getElementById('categorie');
-                    categorySelect.innerHTML = '<option value="">Select a categorie</option>';
+                    categorySelect.innerHTML = '<option value="">Select a category</option>';
                     data.forEach(category => {
                         const option = document.createElement('option');
                         option.value = category.id;
@@ -150,31 +151,41 @@
                 .catch(error => console.error('Error fetching categories:', error));
         }
 
-        // Fetch subcategories based on the selected category
-        function loadSubCategories(categoryId) {
-            fetch(`http://localhost:8080/subcategories/${categoryId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const subCategorySelect = document.getElementById('sousCategorie');
-                    subCategorySelect.innerHTML = '<option value="">Select a sousCategorie</option>';
-                    data.forEach(sousCategorie => {
-                        const option = document.createElement('option');
-                        option.value = subCategory.id;
-                        option.textContent = subCategory.name;
-                        subCategorySelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching subcategories:', error));
-        }
+        window.onload = function() {
+            loadCategories();
+        };
+
+        function loadSubCategories(categorieId) {
+    fetch(`http://localhost:8080/categories/${categorieId}/sousCategories`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const subCategorieSelect = document.getElementById('sousCategorie');
+            subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
+            data.forEach(SousCategorie => {
+                const option = document.createElement('option');
+                option.value = SousCategorie.id; 
+                option.textContent = SousCategorie.name; 
+                subCategorieSelect.appendChild(option); 
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching subcategories:', error);
+        });
+}
 
         // Event listener to load subcategories when a category is selected
         document.getElementById('categorie').addEventListener('change', function() {
-            const categorieId = this.value;
+            const categorieId = parseInt(this.value, 10);  
             if (categorieId) {
-                loadSousCategories(categorieId);
+                loadSubCategories(categorieId);
             } else {
-                const subCategorySelect = document.getElementById('sousCategorie');
-                subCategorySelect.innerHTML = '<option value="">Select a sousCategorie</option>';
+                const subCategorieSelect = document.getElementById('sousCategorie');
+                subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
             }
         });
 

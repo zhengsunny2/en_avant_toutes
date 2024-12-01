@@ -11,15 +11,21 @@ import com.sportfemme.en_avant_toutes.model.SousCategorie;
 
 @Service
 public interface SousCategorieService {
+  public SousCategorie findById(Long id);
+  public List<SousCategorie> findAll();
+  public List<SousCategorie> findByCategorieId(Long categorieId);
+  public SousCategorie addSousCategorie(Long categorieId,String name);
+  /* 
   public Optional<SousCategorie> findByNameAndParentAndCategorie(String name,SousCategorie  parent,Categorie categorie);
-    public List<SousCategorie> findAll();
+ 
     public SousCategorie save(SousCategorie sousCategorie);
-    public List<SousCategorie> findByCategorieId(Long categorieId);
+ 
 
       public Optional<SousCategorie> findById(Long id);
        public Optional<SousCategorie> findByName(String name);
 
- //   public void addVideo(Long id, Video video);
-// public void addSousCategorie(Long id, SousCategorie sousCategorie);
+  public void addVideo(Long id, Video video);
+public void addSousCategorie(Long id, SousCategorie sousCategorie);
+*/
 
 }

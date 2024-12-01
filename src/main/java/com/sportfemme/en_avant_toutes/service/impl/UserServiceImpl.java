@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,10 @@ import com.sportfemme.en_avant_toutes.service.UserService;
 public class UserServiceImpl  implements UserService {
     @Autowired
     private UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -38,21 +41,23 @@ public User registerUser(UserRegisterDTO userRegisterDTO){
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username,password);
+        User user = userRepository.findByUsername(username);
+    if (user == null || !passwordEncoder.matches(password, user.getPassword())) { 
+        throw new RuntimeException("Invalid credentials");
     }
+
+    return user;
+}
+      
+private String hashPassword(String password) {
+    return new BCryptPasswordEncoder().encode(password);
+}
 
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-    private String hashPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-    }
-
-
- 
 
 
     @Override

@@ -1,6 +1,54 @@
 package com.sportfemme.en_avant_toutes.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+
+import com.sportfemme.en_avant_toutes.model.Video;
+import com.sportfemme.en_avant_toutes.service.VideoService;
+
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/videos")
+public class VideoController {
+    @Autowired
+    private final VideoService videoService;
+
+    public VideoController(VideoService videoService) {
+        this.videoService = videoService;
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addVideo(
+            @RequestParam String titre,
+            @RequestParam String description,
+            @RequestParam Long categorieId,
+            @RequestParam Long sousCategorieId,
+            @RequestParam("videoFile") MultipartFile videoFile) {
+        try {
+            Video video = videoService.saveVideo(titre, description, categorieId,sousCategorieId, videoFile);
+            return ResponseEntity.ok(video);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Error uploading video: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Redirect to the video page after upload
+    @GetMapping("/{id}")
+    public ResponseEntity<Video> getVideo(@PathVariable Long id) {
+        Video video=videoService.findById(id);
+        return ResponseEntity.ok(video);
+    }
+
+}
+
+
+/* 
 import java.util.List;
 
 

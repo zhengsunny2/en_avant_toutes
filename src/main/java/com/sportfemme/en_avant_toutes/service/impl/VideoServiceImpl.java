@@ -1,9 +1,78 @@
 package com.sportfemme.en_avant_toutes.service.impl;
 
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sportfemme.en_avant_toutes.model.Categorie;
+import com.sportfemme.en_avant_toutes.model.SousCategorie;
+import com.sportfemme.en_avant_toutes.model.Video;
+import com.sportfemme.en_avant_toutes.repository.CategorieRepository;
+import com.sportfemme.en_avant_toutes.repository.SousCategorieRepository;
+import com.sportfemme.en_avant_toutes.repository.VideoRepository;
+import com.sportfemme.en_avant_toutes.service.VideoService;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+@Service
+public class VideoServiceImpl implements VideoService {
+
+    private final VideoRepository videoRepository;
+    private final CategorieRepository categorieRepository;
+    private final SousCategorieRepository sousCategorieRepository;
+
+    private final String uploadDir = "uploads/videos";
+
+    public VideoServiceImpl(VideoRepository videoRepository, CategorieRepository categorieRepository,SousCategorieRepository sousCategorieRepository) {
+        this.videoRepository = videoRepository;
+        this.categorieRepository=categorieRepository;
+        this.sousCategorieRepository = sousCategorieRepository;
+    }
+
+    public Video saveVideo(String titre, String description, Long categorieId, Long sousCategorieId, MultipartFile videoFile) throws IOException {
+        Optional<Categorie> categorieOpt = categorieRepository.findById(categorieId);
+        Optional<SousCategorie> sousCategorieOpt = sousCategorieRepository.findById(sousCategorieId);
+        if (categorieOpt.isEmpty()) {
+            throw new IllegalArgumentException("Categorie not found");
+        }
+        if (sousCategorieOpt.isEmpty()) {
+            throw new IllegalArgumentException("SousCategorie not found");
+        }
+
+        // Save video file to disk
+        String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
+        Path filePath = Paths.get(uploadDir, fileName);
+        File uploadDirectory = new File(uploadDir);
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+        videoFile.transferTo(filePath);
+
+        // Save video metadata to the database
+        Video video = new Video();
+        video.setTitre(titre);
+        video.setDescription(description);
+        video.setPath(filePath.toString());
+        video.setCategorie(categorieOpt.get());
+        video.setSousCategorie(sousCategorieOpt.get());
+
+        return videoRepository.save(video);
+    }
+
+    @Override
+    public Video findById(Long id) {
+        return videoRepository.findById(id).orElse(null);
+    }
+}
 
 
 
+
+/* 
 
 import java.util.List;
 
@@ -109,7 +178,7 @@ return videoRepository.findBySousCategorie_Categorie(categorie);
 
 }
 
-/* 
+
 
     @Override
 public List<Video> findVideosByCategorieId(Long categorieId) {
@@ -157,10 +226,7 @@ public List<Video> findVideosByCategorieId(Long categorieId) {
 
     }
 
-    @Override
-public Video findById(Long id) {
-    return videoRepository.findById(id).orElse(null);
-}
+
 }
 
 */

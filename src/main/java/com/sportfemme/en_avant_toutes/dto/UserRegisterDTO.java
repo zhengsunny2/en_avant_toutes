@@ -1,6 +1,5 @@
 package com.sportfemme.en_avant_toutes.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;

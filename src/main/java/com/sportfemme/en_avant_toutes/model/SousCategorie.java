@@ -2,6 +2,9 @@ package com.sportfemme.en_avant_toutes.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
@@ -23,12 +26,17 @@ public class SousCategorie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    
+    @ManyToOne
+    @JsonBackReference 
+    @JoinColumn(name = "categorie_id", nullable = false)
+    private Categorie categorie;
+
+/* 
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private SousCategorie parent;
+*/
 
-    @ManyToOne
-    @JoinColumn(name = "categorie_id", nullable = false)
-    private Categorie categorie;
 }
 

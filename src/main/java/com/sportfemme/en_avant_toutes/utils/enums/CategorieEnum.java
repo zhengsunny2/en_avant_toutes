@@ -16,6 +16,14 @@ public enum CategorieEnum {
             return displayName;
         }
 
+        public static CategorieEnum fromString(String valueString) {
+            for (CategorieEnum b : CategorieEnum.values()) {
+                if (b.displayName.equalsIgnoreCase(valueString)) {
+                    return b;
+                }
+            }
+            return null;
+        }
  
     }
     

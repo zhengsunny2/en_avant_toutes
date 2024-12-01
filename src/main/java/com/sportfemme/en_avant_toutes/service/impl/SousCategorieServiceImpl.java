@@ -2,18 +2,20 @@ package com.sportfemme.en_avant_toutes.service.impl;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import com.sportfemme.en_avant_toutes.model.Categorie;
 import com.sportfemme.en_avant_toutes.model.SousCategorie;
-
+import com.sportfemme.en_avant_toutes.repository.CategorieRepository;
 import com.sportfemme.en_avant_toutes.repository.SousCategorieRepository;
 import com.sportfemme.en_avant_toutes.repository.VideoRepository;
+
 import com.sportfemme.en_avant_toutes.service.SousCategorieService;
 
 
@@ -22,21 +24,61 @@ import com.sportfemme.en_avant_toutes.service.SousCategorieService;
 public class SousCategorieServiceImpl implements SousCategorieService {
      @Autowired
     private final SousCategorieRepository sousCategorieRepository;
-   
+    private final CategorieRepository categorieRepository;
      private final VideoRepository videoRepository;
   
-    public SousCategorieServiceImpl(SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
+    public SousCategorieServiceImpl(CategorieRepository categorieRepository,SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
+        this.categorieRepository = categorieRepository;
         this.sousCategorieRepository = sousCategorieRepository;
         this.videoRepository = videoRepository;
        
     }
 
+    @Override
+public SousCategorie findById(Long id) {
+    return sousCategorieRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("SousCategorie with ID " + id + " not found"));
+}
+
+@Override
+public List<SousCategorie> findByCategorieId(Long categorieId) {
+    List<SousCategorie> sousCategories = sousCategorieRepository.findAll()
+        .stream()
+        .filter(sousCategorie -> sousCategorie.getCategorie().getId().equals(categorieId))
+        .toList();
+    if (sousCategories.isEmpty()) {
+        addSousCategorie(categorieId, "Default");
+
+    }
+
+    return sousCategories;
+}
+
+
+
+@Override
+public List<SousCategorie> findAll(){
+    return sousCategorieRepository.findAll();
+}
+
+@Override
+public SousCategorie addSousCategorie(Long categorieId,String name){
+    Categorie categorie = categorieRepository.findById(categorieId)
+    .orElseThrow(() -> new NoSuchElementException("Categorie with ID " + categorieId + " not found"));
+SousCategorie newSousCategorie = new SousCategorie();
+    newSousCategorie.setCategorie(categorie);  
+    newSousCategorie.setName(name);  
+    sousCategorieRepository.save(newSousCategorie);
+    return newSousCategorie;
+}
+}
+/*
 @Override
     public Optional<SousCategorie> findByNameAndParentAndCategorie(String name,SousCategorie  parent,Categorie categorie) {
        return sousCategorieRepository.findByNameAndParentAndCategorie(name, parent, categorie);
     }
 
-/*
+
         @Override
     public void addSousCategorie(Categorie categorie, SousCategorie sousCategorie) {
         SousCategorie s = sousCategorieRepository.findById(sousCategorie.getId())
@@ -55,13 +97,10 @@ public class SousCategorieServiceImpl implements SousCategorieService {
         sousCategorie.getVideos().add(video);
         videoRepository.save(video);
     }
- */
+
     
 
-    @Override
-    public List<SousCategorie> findAll(){
-        return sousCategorieRepository.findAll();
-    }
+
 
     @Override
     public SousCategorie save(SousCategorie sousCategorie){
@@ -82,11 +121,8 @@ public class SousCategorieServiceImpl implements SousCategorieService {
             .findFirst();
     }
 
-    @Override
-    public List<SousCategorie> findByCategorieId(Long categorieId){
-        return sousCategorieRepository.findByCategorieId(categorieId);
-    }
+
     }
 
-
+ */
 

@@ -34,9 +34,9 @@ public class User {
 
     */
 
-    @Column(columnDefinition = "BYTEA")
-    @Lob
-    private byte[] avatar;
+   // @Column(columnDefinition = "BYTEA")
+   // @Lob
+  //  private byte[] avatar;
 
 private boolean active;
 
