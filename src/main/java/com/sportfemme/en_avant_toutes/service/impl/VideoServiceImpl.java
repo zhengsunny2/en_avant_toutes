@@ -1,6 +1,8 @@
 package com.sportfemme.en_avant_toutes.service.impl;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,61 +15,89 @@ import com.sportfemme.en_avant_toutes.repository.VideoRepository;
 import com.sportfemme.en_avant_toutes.service.VideoService;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    private final VideoRepository videoRepository;
-    private final CategorieRepository categorieRepository;
+    @Autowired
     private final SousCategorieRepository sousCategorieRepository;
-
-    private final String uploadDir = "uploads/videos";
-
-    public VideoServiceImpl(VideoRepository videoRepository, CategorieRepository categorieRepository,SousCategorieRepository sousCategorieRepository) {
-        this.videoRepository = videoRepository;
-        this.categorieRepository=categorieRepository;
+    private final CategorieRepository categorieRepository;
+     private final VideoRepository videoRepository;
+     @Value("${video.upload.path}")
+     private String videoUploadPath;
+  
+    public VideoServiceImpl(CategorieRepository categorieRepository,SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
+        this.categorieRepository = categorieRepository;
         this.sousCategorieRepository = sousCategorieRepository;
-    }
-
-    public Video saveVideo(String titre, String description, Long categorieId, Long sousCategorieId, MultipartFile videoFile) throws IOException {
-        Optional<Categorie> categorieOpt = categorieRepository.findById(categorieId);
-        Optional<SousCategorie> sousCategorieOpt = sousCategorieRepository.findById(sousCategorieId);
-        if (categorieOpt.isEmpty()) {
-            throw new IllegalArgumentException("Categorie not found");
-        }
-        if (sousCategorieOpt.isEmpty()) {
-            throw new IllegalArgumentException("SousCategorie not found");
-        }
-
-        // Save video file to disk
-        String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
-        Path filePath = Paths.get(uploadDir, fileName);
-        File uploadDirectory = new File(uploadDir);
-        if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdirs();
-        }
-        videoFile.transferTo(filePath);
-
-        // Save video metadata to the database
-        Video video = new Video();
-        video.setTitre(titre);
-        video.setDescription(description);
-        video.setPath(filePath.toString());
-        video.setCategorie(categorieOpt.get());
-        video.setSousCategorie(sousCategorieOpt.get());
-
-        return videoRepository.save(video);
+        this.videoRepository = videoRepository; 
     }
 
     @Override
     public Video findById(Long id) {
-        return videoRepository.findById(id).orElse(null);
-    }
+        return videoRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("video with ID " + id + " not found"));
 }
+@Override
+public String  saveVideoFile(MultipartFile videoFile)throws IOException{
+        // MultipartFile videoFile = uploadForm.getFichier();
+        File uploadDirectory = new File(videoUploadPath);
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+        String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
+        Path filePath = Paths.get(videoUploadPath, fileName);
+       // videoFile.transferTo(filePath);
+       // return filePath.toString();
+        try {
+            Files.createDirectories(filePath.getParent());
+    
+            try (InputStream in = videoFile.getInputStream();
+                 OutputStream out = new FileOutputStream(filePath.toFile())) {
+                  //  videoService.create(uploadForm.getCategorieId(), uploadForm.getTitre(), fileName);
+    
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, len);
+                }
+            }
+    
+            return "/assets/video/" + fileName;
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+  
+    
+    @Override
+    public Video saveVideo(String titre, String description, Long sousCategorieId, MultipartFile videoFile) throws IOException {
+       SousCategorie sousCategorie = sousCategorieRepository.findById(sousCategorieId)
+        .orElseThrow(() -> new NoSuchElementException("SousCategorie with ID " + sousCategorieId + " not found"));
+        // Save video metadata to the database
+        String  videoPath = saveVideoFile(videoFile);
+        Video video = new Video();
+        video.setTitre(titre);
+        video.setDescription(description);
+        video.setPath(videoPath);
+        video.setSousCategorie(sousCategorie);
+        videoRepository.save(video);
+        return video;
+    }
+
+}
+
+
 
 
 

@@ -1,7 +1,10 @@
 package com.sportfemme.en_avant_toutes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,9 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sportfemme.en_avant_toutes.model.Video;
 import com.sportfemme.en_avant_toutes.service.VideoService;
 
-import java.io.IOException;
 
-@RestController
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+@Controller
 @RequestMapping("/videos")
 public class VideoController {
     @Autowired
@@ -21,31 +28,39 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addVideo(
-            @RequestParam String titre,
-            @RequestParam String description,
-            @RequestParam Long categorieId,
-            @RequestParam Long sousCategorieId,
-            @RequestParam("videoFile") MultipartFile videoFile) {
-        try {
-            Video video = videoService.saveVideo(titre, description, categorieId,sousCategorieId, videoFile);
-            return ResponseEntity.ok(video);
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body("Error uploading video: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+    @PostMapping("/{sousCategorieId}/add-video")
+    public ResponseEntity<Map<String, Object>> addVideo(
+        @PathVariable Long sousCategorieId, 
+        @RequestParam("titre") String titre,
+        @RequestParam("description") String description,
+        @RequestParam("videoFile") MultipartFile videoFile) {
+        
+        Map<String, Object> response = new HashMap<>();
+    try {
+          
+        String videoPageUrl = videoService.saveVideoFile(videoFile);
+        if (videoPageUrl == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(Map.of("error", "Failed to save video."));
         }
+        Video video = videoService.saveVideo(titre, description, sousCategorieId, videoFile);
+        response.put("videoId", String.valueOf(video.getId())); 
+        response.put("videoPageUrl", videoPageUrl);
+        response.put("success", true);
+        response.put("message", "Video added successfully.");
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        response.put("success", false);
+        response.put("message", "Error adding video: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+}
 
-    // Redirect to the video page after upload
-    @GetMapping("/{id}")
-    public ResponseEntity<Video> getVideo(@PathVariable Long id) {
-        Video video=videoService.findById(id);
-        return ResponseEntity.ok(video);
-    }
+
+
 
 }
+
 
 
 /* 

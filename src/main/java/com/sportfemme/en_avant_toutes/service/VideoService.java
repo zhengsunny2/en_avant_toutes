@@ -16,7 +16,9 @@ import com.sportfemme.en_avant_toutes.model.Video;
 @Service
 public interface VideoService {
     public Video findById(Long id);
-    public Video saveVideo(String titre, String description,Long categorieId, Long sousCategorieId, MultipartFile videoFile)throws IOException ;
+
+    public String  saveVideoFile(MultipartFile videoFile)throws IOException;
+    public Video saveVideo(String titre, String description,Long sousCategorieId, MultipartFile videoFile)throws IOException ;
             /* 
     public void saveVideo(String fullPath);
    public List<Video> findBySousCategorie_Categorie(Categorie categorie);

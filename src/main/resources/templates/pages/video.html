@@ -101,34 +101,23 @@
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="titre">Title:</label>
             <input type="text" id="titre" name="titre" required>
-            <!--
-            <label for="categorieEnum">Category Type:</label>
-            <select id="categorieEnum" name="categorieEnum" required>
-                <option value="">Select Category Type</option>
-                <option value="ENTRAINEMENT">Entrainement</option>
-                <option value="NUTRITION">Nutrition</option>
-                <option value="DOCUMENTAIRE">Documentaire</option>
+            <!-- categorie (Categorie) -->
+            <label for="categorie">Categorie:</label>
+            <select id="categorie" name="categorie">
+                <option value="">Select a Categorie</option>
             </select>
-            -->
-            <label for="categorie">Select Category:</label>
-            
-<select id="categorie" name="categorie" required>
-    <option value="">Select a category</option>
-</select>
-
-<label for="sousCategorie">Select a sousCategorie:</label>
-            
-<select id="sousCategorie" name="sousCategorie" required>
-    <option value="">Select a sousCategory</option>
-</select>
-
+            <!-- SousCategorie (SousCategorie) -->
+            <label for="sousCategorie">SousCategorie (SousCategorie):</label>
+            <select id="sousCategorie" name="sousCategorie" required>
+                <option value="">Select a SousCategorie</option>
+            </select>
             <label for="description">Description:</label>
             <textarea id="description" name="description" required></textarea>
 
             <label for="videoFile">Video File:</label>
             <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
 
-            <button type="button">Upload</button>
+            <button type="button" id="addVideoBtn">Upload</button>
         </form>
 
         <div id="responseMessage" class="response"></div>
@@ -189,19 +178,64 @@
             }
         });
 
-        // Load categories when the page loads
-        window.onload = function() {
+  
+document.getElementById('addVideoBtn').addEventListener('click', function() {
+    const sousCategorieId = parseInt(document.getElementById('sousCategorie').value, 10);  // Get the actual selected sousCategorieId
+    if (!sousCategorieId) {
+        alert('Please select a SousCategorie first.');
+        return;
+    }
+
+    const titre = document.getElementById("titre").value;
+    const description = document.getElementById("description").value;
+    const videoFile = document.getElementById("videoFile").files[0];  // Get the file selected in the file input
+
+    if (!videoFile) {
+        alert('Please select a video file.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("titre", titre);
+    formData.append("description", description);
+    formData.append("videoFile", videoFile);
+    
+    // Use the correct URL with the sousCategorieId dynamically inserted
+    fetch(`http://localhost:8080/videos/${sousCategorieId}/add-video`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (responseData.videoId) {
+            alert('sucess to add video.');
+            window.location.href = `http://localhost:8080/videos/video/${responseData.videoId}`;
+       // if (data.success) {
+           // alert('Video added successfully!');
+            //window.location.href="http://localhost:8080/videos/video/${id}"
+        } else {
+            alert(data.message || 'Failed to add video.');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding video:', error);
+    });
+});
+
+
+            // Load categories when the page loads
+            window.onload = function() {
             loadCategories();
             document.getElementById('uploadBtn').addEventListener('click', uploadVideo, { once: true });
         };
-
+/* 
         // Upload video function
         function uploadVideo(event) {
             event.preventDefault();
             const form = document.getElementById('uploadForm');
             const formData = new FormData(form);
 
-            fetch('http://localhost:8080/video_add', {
+            fetch('http://localhost:8080/videos', {
                 method: 'POST',
                 body: formData,
             })
@@ -218,6 +252,7 @@
                 document.getElementById('responseMessage').innerHTML = `<strong>Error:</strong> ${error.message}`;
             });
         }
+            */
     </script>
 </body>
 </html>

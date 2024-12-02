@@ -5,21 +5,25 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.sportfemme.en_avant_toutes.model.Role;
-
+import com.sportfemme.en_avant_toutes.model.Video;
 import com.sportfemme.en_avant_toutes.service.RoleService;
+import com.sportfemme.en_avant_toutes.service.VideoService;
 
 
 
 @Controller
 public class MainController {
     private final RoleService roleService;
-    public MainController(RoleService roleService) {
+    private VideoService videoService;
+    public MainController(RoleService roleService,VideoService videoService) {
     this.roleService = roleService;
+    this.videoService=videoService;
     }
     @GetMapping("/index")
     public String index(){
@@ -52,6 +56,25 @@ public class MainController {
     public String video() {
         return "pages/video";
     }
+
+
+    @GetMapping("videos/video/{videoId}")
+public String videoDetail(@PathVariable Long videoId, Model model) {
+    Video video = videoService.findById(videoId);
+    if (video != null) {
+        model.addAttribute("video", video);
+        model.addAttribute("videoPageUrl", video.getPath());
+        return "pages/videoDetail";
+    } else {
+        return "/index";
+    }
+}
+    /* 
+    @GetMapping("videos/video/{id}")
+    public String videoDetail() {
+        return "pages/videoDetail";
+    }
+        */
 
     @GetMapping("/inscription")
     public String inscription(){

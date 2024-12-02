@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+    <style>
+        #info, #scrollInfo {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        body {
+            width: 110vw;
+            height: 110vh;
+        }
+        div{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        text-align: center;
+        justify-content: center;
+        }
+        button {
+            width: 100px;
+            height: 50px;
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>hello</h1>
+    <p id="info">width = 0px，height = 0px</p>
+    <p id="scrollInfo">lieu X: 0px</p>
+    <p id="scrollInfo2">lieu Y: 0px</p>
+</div>
+    <button id="doneButton">fini</button>
+
+    <script>
+window.addEventListener('load', () => {
+    alert('hello！');
+});
+
+window.addEventListener('resize', () => {
+    document.getElementById('info').textContent = `width = ${window.innerWidth}px，height = ${window.innerHeight}px`;
+});
+
+window.addEventListener('scroll',  () => {
+    document.getElementById('scrollInfo').textContent = `lieu X: ${window.scrollX}px`;
+    document.getElementById('scrollInfo2').textContent = `lieu Y: ${window.scrollY}px`;
+});
+
+const doneButton = document.getElementById('doneButton');
+let quite = true;
+window.addEventListener('beforeunload', (event) => {
+    if (quite) {
+        event.preventDefault();
+        event.returnValue = 'QUITTE？';
+    }
+});
+
+doneButton.addEventListener('click', () => {
+    quite = false;
+    alert('BYE BYE...');
+});
+
+    </script>
+</body>
+</html>

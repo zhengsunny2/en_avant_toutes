@@ -20,7 +20,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
-                .loginPage("/inscription/login") 
+                .loginPage("/inscription") 
                 .permitAll()
             )
             .logout(logout -> logout
