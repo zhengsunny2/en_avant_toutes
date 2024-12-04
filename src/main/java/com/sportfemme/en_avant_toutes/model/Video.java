@@ -40,6 +40,9 @@ public class Video {
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToOne
     private Utilisateur utilisateur;
 

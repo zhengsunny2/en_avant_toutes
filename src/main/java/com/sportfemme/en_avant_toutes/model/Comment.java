@@ -1,4 +1,6 @@
 package com.sportfemme.en_avant_toutes.model;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,4 +26,5 @@ public class Comment {
     private Video video;
     private int note;
     private String content;
+    private LocalDateTime date;
 }

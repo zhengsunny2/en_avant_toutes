@@ -49,21 +49,15 @@ public class VideoServiceImpl implements VideoService {
 @Override
 public String  saveVideoFile(MultipartFile videoFile)throws IOException{
         // MultipartFile videoFile = uploadForm.getFichier();
-        File uploadDirectory = new File(videoUploadPath);
-        if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdirs();
-        }
         String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
         Path filePath = Paths.get(videoUploadPath, fileName);
-       // videoFile.transferTo(filePath);
+       // videoFile.transferTo(filePath); simple save the files
        // return filePath.toString();
         try {
             Files.createDirectories(filePath.getParent());
     
             try (InputStream in = videoFile.getInputStream();
                  OutputStream out = new FileOutputStream(filePath.toFile())) {
-                  //  videoService.create(uploadForm.getCategorieId(), uploadForm.getTitre(), fileName);
-    
                 byte[] buffer = new byte[1024];
                 int len;
                 while ((len = in.read(buffer)) > 0) {
@@ -84,7 +78,6 @@ public String  saveVideoFile(MultipartFile videoFile)throws IOException{
     public Video saveVideo(String titre, String description, Long sousCategorieId, MultipartFile videoFile) throws IOException {
        SousCategorie sousCategorie = sousCategorieRepository.findById(sousCategorieId)
         .orElseThrow(() -> new NoSuchElementException("SousCategorie with ID " + sousCategorieId + " not found"));
-        // Save video metadata to the database
         String  videoPath = saveVideoFile(videoFile);
         Video video = new Video();
         video.setTitre(titre);

@@ -33,12 +33,21 @@ fetch('http://localhost:8080/inscription/login', {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
     })
-        .then(response => {
-            if (!response.ok) throw new Error('Invalid username or password');
+        .then(async response => {
+            if (!response.ok) {
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const errorData = await response.json();
+                    throw new Error(errorData.message || 'Invalid credentials');
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'An unknown error occurred');
+                }
+        }
             return response.json();
         })
         .then(data => {
-            if (data.token)
+            if (data.token,data.redirect)
                 {
                     if (readCookie('auth-token-vod')==null) 
                     {
@@ -46,7 +55,7 @@ fetch('http://localhost:8080/inscription/login', {
                     }
              localStorage.setItem('authToken', data.token);
             alert(`Bienvenue, ${username}!`);
-            window.location.href = 'http://localhost:8080/index';
+            window.location.href = data.redirect;
                 }
                 else if (data.status==404)
                 {
@@ -83,7 +92,7 @@ document.getElementById('inscrireButton').addEventListener('click', function() {
         console.log('Parsed JSON Data:', data);
         localStorage.setItem('authToken', data.token);
         alert('Inscription réussie!');
-        loginPage();
+        window.location.href = 'http://localhost:8080/video';
     })
     .catch(err => {
         console.error('Error:', err);

@@ -2,6 +2,8 @@ package com.sportfemme.en_avant_toutes.controller;
 
 
 
+import java.net.URI;
+import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,15 +57,16 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
             response.put("user", user);
+            response.put("redirect", "/video");
             return ResponseEntity.ok(response);
-    } catch (Exception e) {
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }    
+}
 
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("message", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }
-}
-}
 
 
 

@@ -2,6 +2,8 @@ package com.sportfemme.en_avant_toutes.model;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +27,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
+    @OneToMany(mappedBy = "user")
+    private List<Video> videos;
 
     /* 
     @Enumerated(EnumType.STRING)
