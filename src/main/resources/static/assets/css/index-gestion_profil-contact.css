@@ -1,0 +1,588 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li{
+  list-style: none;
+}
+
+body {
+  font-family:"Bebas Neue", sans-serif;
+}
+
+button{
+  text-decoration: none;
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 16px;
+  background-color:#CAF83E;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* NAVBAR */
+nav{
+  width: 100%;
+}
+#accueil {
+  background-image: url(../images/index-gestion_profil-contact/ribbons-bottle-dumbbells_23-2147628644.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+#logo-acceuil {
+  width: 200px;
+  /* background-color:rgba(255, 255, 000, 0.5); */
+  /* border-radius: 100px; */
+}
+
+.navbar-lien ul{
+  display: flex;
+  justify-content: center;
+  gap: 30px; 
+  /* background-color: white; */
+}
+
+.navbar-lien a {
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  color: white;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-lien a:hover {
+  background-color: #CAF83E;
+  color: #00373E;
+}
+
+.navbar-bouton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-bouton button {
+  text-decoration: none;
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 16px;
+  background-color:#CAF83E;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-bouton button:hover {
+  background-color: rgb(202, 248, 62);
+}
+
+.navbar-bouton img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.navbar-bouton a{
+    text-decoration: none;
+    color: #00373E;
+    font-size: 20px;
+}
+
+.navbar-texte {
+  color: white;
+  text-align: center;
+  font-size: 150px;
+  font-family: "Bebas Neue", sans-serif;
+  margin-top: 50px;
+}
+
+
+/* ------NAVBAR FIN---------------------------------NAVBAR FIN----------------------------------------------------NAVBAR FIN-----------------------------------NAVBAR FIN------------------------------------- */
+
+/* ACCUEIL- MAIN */
+
+.texte-defilant {
+    width: 100%; 
+    white-space: nowrap;
+    overflow: hidden; 
+    box-sizing: border-box;
+    background-color:white; 
+    color: rgb(0, 55, 62); 
+    padding: 10px 0;
+    font-size: 30px;
+    font-family: "Bebas Neue", sans-serif;
+  }
+
+  .texte-defilant span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: defilement 30s linear infinite; 
+  }
+
+  @keyframes defilement {
+    from {
+      transform: translateX(0); 
+    }
+    to {
+      transform: translateX(-100%); 
+    }
+  }
+
+  #accueil-pele-mele{
+    width: 100% ;
+  }
+ .accueil-pele-mele-1,.accueil-pele-mele-2,.accueil-pele-mele-3{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  /* gap: 20px; */
+ }
+
+.accueil-pele-mele-1 img, .accueil-pele-mele-2 img, .accueil-pele-mele-3 img{
+  display: flex;
+  max-width: 100%;
+  max-height:500px;
+  justify-content: center;
+  object-position: center;
+ }
+
+ .photo-accueil {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin: 10px; /* Ajoute une marge de 10px de tous les côtés */
+  padding: 5px; /* Optionnel : ajoute un peu d'espace intérieur */
+ 
+}
+
+.photo-accueil img {
+  width: 500px; /* Largeur fixe */
+  height: 350px; /* Hauteur fixe */
+  object-fit: cover; /* Remplit l'espace sans déformer l'image */
+  display: block; /* Assure que l'image est un bloc */
+}
+
+.photo-accueil h4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  background-color:  rgba(255, 175, 204, 0.76);
+  color: white;
+  font-size: 5rem;
+ padding: 1rem;
+}
+
+.photo-accueil p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(255, 175, 204, 0.76);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.photo-accueil:hover p {
+  opacity: 1; /* Afficher le texte au survol */
+}
+
+.photo-accueil:hover h4{
+position: absolute;
+opacity:0;
+}
+
+
+  
+  /* -----------GESTION PROFIL-------------------------------------------GESTION PROFIL---------------------------------------GESTION PROFIL------------------------------------------GESTION PROFIL----------------------------------- */
+
+  #gestion-profil {
+    background-image: url(../images/Accueil/femme-forte-fitness-fond-vert.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .form-gestion-profil{
+    width: 600px;
+    margin-left: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color:rgba(0, 160, 176, 0.3) ;
+    padding:50px;
+    display:flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+  }
+
+  .form-gestion-profil input, textarea{
+    width: 300px;
+  height: 30px;
+  display: flex;
+  }
+
+  .form-gestion-profil textarea{
+   height: 200px;
+  }
+
+.form-gestion-profil button{
+  display: flex;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.logo-form-gestion-profil img{
+  max-width: 100%;
+  max-height: 100%;
+  margin: 250px;
+ position: absolute;
+}
+#gestion-profil-photo{
+display: flex;
+margin: 100px;
+gap: 50px;
+justify-content: center;
+}
+
+#gestion-profil-photo img{
+  width: 20%;
+  height: 20%;
+  justify-content: center;
+}
+
+#gestion-profil-photo h3{
+  color: #00373E;
+  text-align: center;
+  font-size: 150px;
+  font-family: "Bebas Neue", sans-serif;
+  margin-top: 50px;
+}
+/* --------------------CONTACT--------------------------------------------------------CONTACT-----------------------------------------CONTACT-----------------------------CONTACT--------------------------------- */
+#contact{
+  background-image: url(../images/Accueil/sortie-femme-sportive-sourire-sincere-posant-dans-vetements-actifs-elegants-studio-utiliser-smartphone-ecouter-musique_273443-1236.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-contact{
+  background-color:rgba(0, 160, 176, 0.3);
+  padding: 50px 50px 30px 50px ;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+
+}
+
+.form-contact input{
+  width: 250px;
+  height: 30px;
+  display: flex;
+}
+
+.form-contact textarea {
+  width: 250px;
+  height: 150px;
+  display: flex;
+}
+
+.form-contact button{
+  display: flex;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#form-contact-msg{
+  margin-top: 15px;
+}
+.logo-form-contact{
+  display: flex;
+}
+
+.logo-form-contact img{
+  object-fit:cover;
+  margin-left: 200px;
+}
+
+
+
+
+/* ----------------CONNEXION---------------------------------------------CONNEXION------------------------------------------------------CONNEXION--------------------------------------CONNEXION------------------------------------------------------------ */
+#connexion {
+  background-image: url(../images/Accueil/femme-prenant-part-au-cours-zumba.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formulaire-connexion {
+  background-color:rgba(24, 160, 176, 0.3);
+  padding: 50px 50px 30px 50px ;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+}
+
+.formulaire-connexion input{
+  width: 250px;
+  height: 30px;
+  display: flex;
+}
+
+.formulaire-connexion button{
+  display: flex;
+  font-size: 20px;
+}
+
+.formulaire-connexion a{
+  text-decoration: none;
+  color: #00373E;
+}
+.formulaire-connexion p{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.logo-form-connexion{
+  display: flex;
+}
+
+.logo-form-connexion img{
+  object-fit:cover;
+  margin-left: 200px;
+}
+
+
+/* ----------------------AJOUT-VIDEO-----------------------------------------------AJOUT-VIDEO--------------------------------------------------------------AJOUT-VIDEO----------------------------------------------------------------- */
+
+#ajout-video {background-image: url(../images/Accueil/emballage-vhs-retro-interieur_23-2150172389.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#videos{
+display: flex;
+justify-content: center;
+gap: 50px;
+
+}
+
+#video1{
+  background-color: #00373E;
+  width: 600px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+#video2{
+  background-color: #CAF83E;
+  width: 600px;
+  height: 400px;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+#video1 button{
+  height: 50px;
+  font-size: 30px;
+}
+
+#video2 button{
+ background-color: #00373E;
+ color: #CAF83E;
+ height: 50px;
+ font-size: 30px;
+}
+
+#plus{
+  border-radius: 100%;
+width: 50px;
+height: 50px;
+}
+ select{
+  width: 300px;
+  height: 30px;
+ }
+/*footer*/
+
+.logo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 20px;
+}
+.logo .logo-container img {
+  width: 200px;
+}
+
+footer {
+  background-color:#00A0B0 ;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60PX 0px 60px;
+  color: white;
+}
+
+.left {
+  width: 33%;
+}
+
+
+.center{
+  width: 33%;
+}
+
+.right{
+  width: 33%;
+}
+
+.social-media {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin: 50px;
+  color: white;
+  font-size: 22px;
+}
+
+.subscribe h3 {
+  color:#CAF83E;
+  font-family:"IBM Plex Sans", sans-serif;
+}
+
+.inputtext {
+  border: none;
+  outline: none;
+  background-color: white;
+  width: 3500px;
+  height: 40px;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+  button:hover{  
+    background-color:#00373E;
+    color:#CAF83E;
+  }
+
+.subscribe p{
+  color: var(--blanc);
+  line-height: 30px;
+  
+}
+
+footer hr {
+  margin: 15px;
+  color:white;
+}
+
+footer button{
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  background-color:#CAF83E;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.copyright {
+  color: white;
+  padding: 0px 50px 25px 50px;
+  font-size: 12px;
+  text-align: center;
+}
+.centersubscribep{
+  padding: 60px;
+}
+
+.subscribe{
+  padding: 20px;
+}
+/*footer*/
+
+@media (max-width: 768px) {
+  .photo-accueil {
+      flex: 1 1 45%; /* Chaque bloc prend environ 45% de la largeur */
+  }
+}
+
+@media (max-width: 480px) {
+  #accueil-pele-mele {
+      gap: 10px;
+      padding: 10px;
+  }
+
+  .photo-accueil {
+      flex: 1 1 100%; /* Chaque bloc prend 100% de la largeur sur mobile */
+  }
+
+  .photo-accueil img {
+      height: 200px; /* Réduit la hauteur de l'image pour économiser de l'espace */
+  }
+
+  .photo-accueil div p {
+      font-size: 0.9em; /* Réduit la taille du texte sur mobile */
+  }
+}
