@@ -96,11 +96,12 @@ public String video(HttpSession session, Model model) {
 }
 
 
-    @GetMapping("videos/video/{videoId}")
+    @GetMapping("/video/{videoId}")
 public String videoDetail(@PathVariable Long videoId, Model model) {
     Video video = videoService.findById(videoId);
     if (video != null) {
         model.addAttribute("video", video);
+        //model.addAttribute("username", video.getUser().getUsername());
         model.addAttribute("videoPageUrl", video.getPath());
         return "pages/videoDetail";
     } else {

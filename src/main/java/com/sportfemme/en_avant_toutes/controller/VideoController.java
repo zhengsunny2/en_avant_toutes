@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/videos")
 public class VideoController {
     @Autowired
     private final VideoService videoService;
@@ -68,6 +67,7 @@ public class VideoController {
             //response
             Map<String, Object> response = new HashMap<>();
             response.put("videoId", video.getId());
+            response.put("username", video.getUser().getUsername());
             response.put("videoPageUrl", videoPageUrl);
             response.put("success", true);
             response.put("message", "Video added successfully.");
