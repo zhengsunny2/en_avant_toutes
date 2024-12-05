@@ -47,7 +47,7 @@ fetch('http://localhost:8080/inscription/login', {
             return response.json();
         })
         .then(data => {
-            if (data.token,data.redirect)
+            if (data.token && data.redirect)
                 {
                     if (readCookie('auth-token-vod')==null) 
                     {

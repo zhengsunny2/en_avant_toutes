@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sportfemme.en_avant_toutes.model.Categorie;
 import com.sportfemme.en_avant_toutes.model.SousCategorie;
+import com.sportfemme.en_avant_toutes.model.User;
 import com.sportfemme.en_avant_toutes.model.Video;
-import com.sportfemme.en_avant_toutes.repository.CategorieRepository;
+
 import com.sportfemme.en_avant_toutes.repository.SousCategorieRepository;
+import com.sportfemme.en_avant_toutes.repository.UserRepository;
 import com.sportfemme.en_avant_toutes.repository.VideoRepository;
 import com.sportfemme.en_avant_toutes.service.VideoService;
 
-import java.io.File;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,20 +24,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @Service
 public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private final SousCategorieRepository sousCategorieRepository;
-    private final CategorieRepository categorieRepository;
+    private final UserRepository userRepository;
      private final VideoRepository videoRepository;
+
      @Value("${video.upload.path}")
      private String videoUploadPath;
   
-    public VideoServiceImpl(CategorieRepository categorieRepository,SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
-        this.categorieRepository = categorieRepository;
+    public VideoServiceImpl(UserRepository userRepository,SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
+        this.userRepository=userRepository;
         this.sousCategorieRepository = sousCategorieRepository;
         this.videoRepository = videoRepository; 
     }
@@ -75,14 +77,18 @@ public String  saveVideoFile(MultipartFile videoFile)throws IOException{
   
     
     @Override
-    public Video saveVideo(String titre, String description, Long sousCategorieId, MultipartFile videoFile) throws IOException {
+    public Video saveVideo(String titre, String description, Long userId, Long sousCategorieId, MultipartFile videoFile) throws IOException {
        SousCategorie sousCategorie = sousCategorieRepository.findById(sousCategorieId)
         .orElseThrow(() -> new NoSuchElementException("SousCategorie with ID " + sousCategorieId + " not found"));
+        User user=userRepository.findById(userId) 
+        .orElseThrow(() -> new NoSuchElementException("User with ID " + sousCategorieId + " not found"));
+        
         String  videoPath = saveVideoFile(videoFile);
         Video video = new Video();
         video.setTitre(titre);
         video.setDescription(description);
         video.setPath(videoPath);
+        video.setUser(user);
         video.setSousCategorie(sousCategorie);
         videoRepository.save(video);
         return video;

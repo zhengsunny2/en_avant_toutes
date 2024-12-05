@@ -7,13 +7,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.sportfemme.en_avant_toutes.dto.UserLoginDTO;
 import com.sportfemme.en_avant_toutes.model.Role;
+import com.sportfemme.en_avant_toutes.model.User;
 import com.sportfemme.en_avant_toutes.model.Video;
 import com.sportfemme.en_avant_toutes.service.RoleService;
+import com.sportfemme.en_avant_toutes.service.UserService;
 import com.sportfemme.en_avant_toutes.service.VideoService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -21,9 +26,12 @@ import com.sportfemme.en_avant_toutes.service.VideoService;
 public class MainController {
     private final RoleService roleService;
     private VideoService videoService;
-    public MainController(RoleService roleService,VideoService videoService) {
+    private  UserService userService;
+
+    public MainController(UserService userService,RoleService roleService,VideoService videoService) {
     this.roleService = roleService;
     this.videoService=videoService;
+    this.userService=userService;
     }
     @GetMapping("/index")
     public String index(){
@@ -53,9 +61,19 @@ public class MainController {
     }
 
     @GetMapping("/video")
-    public String video() {
+public String video(HttpSession session, Model model) {
+    UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
+    if (loggedInUserDTO != null) {
+        User loggedInUser = userService.findByUsernameAndPassword(
+        loggedInUserDTO.getUsername(),
+        loggedInUserDTO.getPassword()
+        );
+        model.addAttribute("loggedInUser", loggedInUser);
         return "pages/video";
+    } else {
+        return "redirect:/inscription";
     }
+}
 
 
     @GetMapping("videos/video/{videoId}")

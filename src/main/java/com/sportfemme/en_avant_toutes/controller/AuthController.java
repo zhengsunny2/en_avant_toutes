@@ -7,6 +7,7 @@ import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sportfemme.en_avant_toutes.dto.UserDTO;
 import com.sportfemme.en_avant_toutes.dto.UserLoginDTO;
 import com.sportfemme.en_avant_toutes.dto.UserRegisterDTO;
 import com.sportfemme.en_avant_toutes.model.User;
 import com.sportfemme.en_avant_toutes.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/inscription")
@@ -51,12 +55,14 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO, HttpSession session) {
         try {
             User user = userService.findByUsernameAndPassword(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+            session.setAttribute("loggedInUser", userLoginDTO);
+    
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
-            response.put("user", user);
+            response.put("token", "generated-auth-token");
             response.put("redirect", "/video");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -64,9 +70,12 @@ public class AuthController {
             errorResponse.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
-    }    
-}
+    }
+    
 
+    }
+    
+   
 
 
 

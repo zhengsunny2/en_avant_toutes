@@ -98,7 +98,7 @@
     </div>
 
     <div class="container">
-        <div>hello,${user.username}</div>
+        <div id="user" th:text="${loggedInUser?.username}"></div>
         <h1>Upload Video</h1>
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="titre">Title:</label>
@@ -126,6 +126,7 @@
         <div id="videoInfo" class="video-info"></div>
     </div>
     <script>
+
         function loadCategories() {
             fetch('http://localhost:8080/categories')
                 .then(response => response.json())
@@ -183,22 +184,17 @@
   
     document.getElementById('addVideoBtn').addEventListener('click', function (event) {
     event.preventDefault(); 
+    const userElement = document.getElementById("user");
+    const loggedInUser = userElement ? userElement.textContent : null;
     const sousCategorieId = parseInt(document.getElementById('sousCategorie').value, 10);
-    if (!sousCategorieId) {
-        alert('Please select a SousCategorie first.');
-        return;
-    }
     const titre = document.getElementById("titre").value.trim();
     const description = document.getElementById("description").value.trim();
-    if (!titre || !description) {
-        alert('Please fill in both title and description.');
-        return;
-    }
     const videoFile = document.getElementById("videoFile").files[0];
-    if (!videoFile) {
-        alert('Please select a video file.');
+    if (!titre || !description || !sousCategorieId || !videoFile) {
+        alert('Please fill in all fields and select a file.');
         return;
     }
+
     const formData = new FormData();
     formData.append("titre", titre);
     formData.append("description", description);

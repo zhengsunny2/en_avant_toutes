@@ -8,11 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.sportfemme.en_avant_toutes.dto.UserLoginDTO;
+import com.sportfemme.en_avant_toutes.model.User;
 import com.sportfemme.en_avant_toutes.model.Video;
+import com.sportfemme.en_avant_toutes.service.UserService;
 import com.sportfemme.en_avant_toutes.service.VideoService;
 
-
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,42 +25,64 @@ import java.util.Map;
 public class VideoController {
     @Autowired
     private final VideoService videoService;
+    private  UserService userService;
 
-    public VideoController(VideoService videoService) {
+    public VideoController(UserService userService,VideoService videoService) {
         this.videoService = videoService;
+        this.userService=userService;
     }
+
+    
 
     @PostMapping("/{sousCategorieId}/add-video")
-    public ResponseEntity<Map<String, Object>> addVideo(
-        @PathVariable Long sousCategorieId, 
-        @RequestParam("titre") String titre,
-        @RequestParam("description") String description,
-        @RequestParam("videoFile") MultipartFile videoFile) {
-        
-        Map<String, Object> response = new HashMap<>();
-    try {
-          
-        String videoPageUrl = videoService.saveVideoFile(videoFile);
-        if (videoPageUrl == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(Map.of("error", "Failed to save video."));
+    public ResponseEntity<?> addVideo(
+            @PathVariable Long sousCategorieId, 
+            @RequestParam("titre") String titre,
+            @RequestParam("description") String description,
+            @RequestParam("videoFile") MultipartFile videoFile,
+            HttpSession session) {
+    
+        // get UserLoginDTO from session
+        UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
+        if (loggedInUserDTO == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
         }
-        Video video = videoService.saveVideo(titre, description, sousCategorieId, videoFile);
-        response.put("videoId", String.valueOf(video.getId())); 
-        response.put("videoPageUrl", videoPageUrl);
-        response.put("success", true);
-        response.put("message", "Video added successfully.");
-        return ResponseEntity.ok(response);
-    } catch (Exception e) {
-        response.put("success", false);
-        response.put("message", "Error adding video: " + e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    
+        try {
+            // 使用 UserService 加载完整的 User 对象
+            User loggedInUser = userService.findByUsernameAndPassword(
+                loggedInUserDTO.getUsername(), 
+                loggedInUserDTO.getPassword()
+            );
+    
+            // 保存视频文件并获取其页面 URL
+            String videoPageUrl = videoService.saveVideoFile(videoFile);
+            if (videoPageUrl == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("error", "Failed to save video."));
+            }
+    
+            // 保存视频实体到数据库
+            Video video = videoService.saveVideo(titre, description, loggedInUser.getId(), sousCategorieId, videoFile);
+    
+            // 构建响应
+            Map<String, Object> response = new HashMap<>();
+            response.put("videoId", video.getId());
+            response.put("videoPageUrl", videoPageUrl);
+            response.put("success", true);
+            response.put("message", "Video added successfully.");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    Map.of("success", false, "message", "Invalid input: " + e.getMessage())
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    Map.of("success", false, "message", "Error adding video: " + e.getMessage())
+            );
+        }
     }
-}
-
-
-
-
+    
 }
 
 
