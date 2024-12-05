@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="../assets/Javascript/head.js"></script>
+    <script src="../assets/Javascript/inscription.js"></script>
     <title>MESVIDEOS-Profil-SportFemme</title>
 </head>
-<body  background="../assets/images/bg9.png">
-    <header>
+<body>
+    <header class="headerbg2">
         <nav>
             <div class="navbar-container">
                 <div class="logo-container">
                     <a href="../index.html"><img src="../assets/images/logo.png" alt="logo"></a>
                 </div>
+                <div class="menu-button" onclick="toggleMenu()">☰</div>
                 <ul class="navbar-links">
                     <li><a href="../index.html">ACCUEIL</a></li>
                     <li><a href="../pages/entrainement.html">ENTRAINEMENTS</a></li>
@@ -21,25 +24,38 @@
                     <li><a href="../pages/documentaire.html">DOCUMENTAIRES</a></li>
                     <li><a href="../pages/contact.html">CONTACT</a></li>
                 </ul>
-                <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <button id="connect"><a href="../pages/inscription.html">SE CONNECTER</a></button>
+                <div class="iconCompte-wrapper">
+                    <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    </div>  <div id="goToLoginButton" class="profil-picture-container">
+                    <a href="/profil"><img  src="../assets/images/profile-pic-navbar.png" alt="profil-picture"></a>
+                </div>
+                <button id="connect"><a href="/inscription">SE CONNECTER</a></button>
             </div>  
         </nav>
     </header>
-    <main>
-     <div id="homePage" >
-        <div id="container">
-         <div class="profilebg">
-          <div id="userbanner">
-            <div><img src="../assets/images/img1.png" alt="" class="rond"></div>
-            <div class="profil-h3"><h3>BIENVENNUE SUR TA PAGE</h3>
-                <h3>JOHANA</h3></div>
-            <div><img src="../assets/images/avatar.png" alt=""></div>
+    <main class="mainbg">
+        <div id="banner-container">  
+            <div id="userbanner"> </div>
+                  <div><img src="../assets/images/img1.png" alt="" class="rond"></div>
+                   <div class="profil-h3"><h3>BIENVENNUE SUR TA PAGE</h3>
+                    <h3 class="profil-h3">JOHANA</h3>
+                   </div>
+                  <div class="image-container">
+                      <img src="../assets/images/avatar.png" alt="Avatar" class="image1">
+                  </div>
+           
           </div>
           <div id="profil">
+            <div class="flexwrap">
            <h1>MES VIDEOS</h1>
+           <div class="scorebox" style="background-color: var(--vert);">
+            <h4>AJOUTER DES VIDEOS</h4>
+         <a href="../pages/mesvideos.html"><img src="../assets/images/add.png" alt=""></a>   
+        </div>
+    </div>
           <div id="prefere">
            <div class="flexwrap">
+            <div class="flexcolumn">
                 <div class="article style1">
                     <a href="../pages/entrainement-fiche.html" target="_blank">
                         <img src="../assets/images/N21.jpg" alt="${article.titre}"  class="large-image">
@@ -57,7 +73,10 @@
                             </div>
                         </div>
                         </a>
-                    </div>
+                </div>
+                <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+            </div>
+            <div class="flexcolumn">
                     <div class="article style1">
                         <a href="../pages/entrainement-fiche.html" target="_blank">
                             <img src="../assets/images/D3.jpg" alt="${article.titre}"  class="large-image">
@@ -76,6 +95,9 @@
                             </div>
                             </a>
                         </div>
+                        <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+                    </div>
+                        <div class="flexcolumn">
                         <div class="article style1">
                             <a href="../pages/entrainement-fiche.html" target="_blank">
                                 <img src="../assets/images/D3.jpg" alt="${article.titre}"  class="large-image">
@@ -94,7 +116,10 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="article style1">
+                     <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+                    </div>
+                     <div class="flexcolumn"> 
+                     <div class="article style1">
                                 <a href="../pages/entrainement-fiche.html" target="_blank">
                                     <img src="../assets/images/D3.jpg" alt="${article.titre}"  class="large-image">
                                     <div class="small-image-wrapper style1">
@@ -112,6 +137,9 @@
                                     </div>
                                     </a>
                                 </div>
+                                <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+                            </div>
+                                <div class="flexcolumn">
                                 <div class="article style1">
                                     <a href="../pages/entrainement-fiche.html" target="_blank">
                                         <img src="../assets/images/D3.jpg" alt="${article.titre}"  class="large-image">
@@ -130,7 +158,9 @@
                                         </div>
                                         </a>
                                     </div>
-            
+                                    <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+                                </div>
+                                    <div class="flexcolumn">
                     <div class="article style1">
                         <a href="../pages/entrainement-fiche.html" target="_blank">
                             <img src="../assets/images/N21.jpg" alt="${article.titre}"  class="large-image">
@@ -149,7 +179,10 @@
                             </div>
                             </a>
                         </div>
-
+                       
+                        <div class="flexrow"><button class="button">modifier</button><button class="button">supprimer</button></div>
+                    </div>
+                        
                        
                            
                         </div>

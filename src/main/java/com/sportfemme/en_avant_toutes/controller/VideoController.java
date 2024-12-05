@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +16,7 @@ import com.sportfemme.en_avant_toutes.service.VideoService;
 
 import jakarta.servlet.http.HttpSession;
 
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,23 +49,23 @@ public class VideoController {
         }
     
         try {
-            // 使用 UserService 加载完整的 User 对象
+            // UserService get user 
             User loggedInUser = userService.findByUsernameAndPassword(
                 loggedInUserDTO.getUsername(), 
                 loggedInUserDTO.getPassword()
             );
     
-            // 保存视频文件并获取其页面 URL
+            // save video and get the url of video
             String videoPageUrl = videoService.saveVideoFile(videoFile);
             if (videoPageUrl == null) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .body(Map.of("error", "Failed to save video."));
             }
     
-            // 保存视频实体到数据库
+            //save video in the SQL
             Video video = videoService.saveVideo(titre, description, loggedInUser.getId(), sousCategorieId, videoFile);
     
-            // 构建响应
+            //response
             Map<String, Object> response = new HashMap<>();
             response.put("videoId", video.getId());
             response.put("videoPageUrl", videoPageUrl);

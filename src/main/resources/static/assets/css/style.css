@@ -26,6 +26,8 @@ li {
   text-decoration: none;
 }
 
+
+
 :root {
   --bluesky:#00A0B0;
   --vert: #CAF83E;
@@ -37,10 +39,26 @@ li {
 
 }
 
+.mainbg{
+  background: linear-gradient(to bottom, var(--pink),var(--bluesky));
+}
+
 /*header*/
+.headerbg{
+  background-image: url(../images/bg6.png);
+  object-fit: cover;
+}
+.headerbg2{
+  background-image: url(../images/bg5.png);
+  object-fit: cover;
+}
+.headerbg3{
+  background-image: url(../images/bg2.png);
+  object-fit: cover;
+}
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 5px 35px;
   background-position: center top;
@@ -66,9 +84,47 @@ align-items: center;
 text-align: center;
 }
 
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .menu-button {
+    display: block;
+    font-size: 50px;
+    color: var(--vert);
+    margin: 15px;
+    cursor: pointer;
+  }
+
+  .menu-button:hover{
+  color: var(--thistle);
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bluesky);
+    flex-direction: column;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .navbar-links li {
+    margin: 10px 0;
+  }
+
+  .navbar-links.show {
+    display: flex;
+  }
+}
+
 .navbar-links a{
   color: var(--blanc);
-  font-size: 30px;
+  font-size: 24px;
   font-family: "Bebas Neue" ;
   font-weight: 700;
   cursor: pointer;
@@ -87,13 +143,15 @@ text-align: center;
   background-color: var(--vert);
   border:2px var(--vert) solid;
 }
-
+.iconCompte-wrapper{
+  display: inline-block;
+}
 .iconCompte{
-  color: var(--thistle);
+  color: var(--vert);
   font-size: 20px;
   font-weight: lighter;
-  width: 55px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: var(--blanc);
   text-align: center;
@@ -101,12 +159,15 @@ text-align: center;
   display: flex;
   justify-content: center;
   cursor: pointer;
+ 
 }
 
 .iconCompte:hover{
   color: var(--blanc);
   background-color: var(--thistle);
 }
+
+
 
 .navbar-container button{
   width: 250px;
@@ -142,35 +203,37 @@ cursor: pointer;
   width: 80px;
 
 }
-.profil-picture-container{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: var(--blanc);
-  cursor: pointer;
-}
+
+
 .profil-picture-container img {
-  width: 55px;
-  height: 55px;
+  width: 35px;
   border-radius: 50%;
+  background-color: var(--vert);
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.profil-picture-container img:hover{
+  background-color:var(--thistle);
 }
 
-.profil-picture-container:hover{
-  background-color:var(--thistle);
-  color: var(--blanc);
-}
+
 /*header fini*/
 
 /*login*/
+
+.inscriptionbg {
+  background-image: url('../images/bg5.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 #logincontainer{
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   margin: 0;
 }
 .page {
@@ -227,9 +290,34 @@ margin: auto;
 #logincontainer img {
   width: 400px;
   position: absolute;
-  left: 100px;
-  top: 250px;
-  z-index: 1;
+  top: 180px;
+  z-index: 2;
+  transform: translateX(-50%); 
+  
+}
+
+@media (max-width: 768px) {
+  #logincontainer img {
+    display: none;
+  }
+  .page {
+    width: 90%; 
+    padding: 30px; 
+  }
+}
+
+@media (max-width: 480px) {
+  #logincontainer {
+    padding: 10px; 
+  }
+  #logincontainer input {
+    width: 300px;
+    padding: 8px;
+      }
+  .page {
+    width: 350px;
+    padding: 20px; 
+  }
 }
 
 /*login fini*/
@@ -541,8 +629,10 @@ font-family:"Bebas Neue";
 #articles-container, #articles2-container,#articles3-container{
   display: flex;
   flex-wrap: wrap;
-  justify-content:start;
-  padding: 20px;
+  justify-content:space-around;
+  margin: 0 auto;
+  gap: 20px;
+  padding-top:20px;;
 }
 
 
@@ -551,7 +641,6 @@ font-family:"Bebas Neue";
     width: 385px; 
     height: 253px;
     overflow: hidden;
-    margin: 10px;
     cursor: pointer;
 }
 
@@ -607,6 +696,14 @@ object-position: center;
   padding: 20px auto;
 }
 
+.article-h2{
+  text-align: center;
+}
+
+.article-h3{
+  font-size: 24px;
+}
+
 .article:hover .overlay {
     transform: translateY(0);
 }
@@ -621,6 +718,8 @@ object-position: center;
   justify-content: space-between;
   color: var(--blanc);
   gap: 40px;
+  line-height: 36px;
+  font-size: 18px;
 }
 
 
@@ -665,10 +764,10 @@ object-position: center;
 #filter{
   display: flex;
 flex-wrap: wrap;
-justify-content: start;
+justify-content: center;
 width: 100%;
-margin-left:75px;
-margin-top: 30px;
+padding-top: 30px;
+padding-bottom: 30px;
 
 }
  .button-filter {
@@ -705,24 +804,17 @@ margin-top: 30px;
 /*profil*/
 h1{
   color: var(--blanc);
-  font-size: 100px;
+  font-size: 10vw;
   font-family:"Bebas Neue";
   font-weight: 700;
-  margin-left: 20px;
   display: flex;
-  justify-content:left;
+  justify-content:center;
 }
 .h1left{
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
   width: 100%;
-  margin-left: 48px;
   margin-top: 50px;
 }
 .profilebg{
- 
-
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -746,40 +838,91 @@ h1{
   align-items: center;
   justify-content: center;
 }
+#banner-container{
+  width: 90%;
+  height: 260px;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
 
+}
 #userbanner {
   height: 168px;
   background-color: var(--bluesky);
+  top: 140px;
+  position: absolute;
   display: flex;
-  flex-wrap: wrap;
-  margin: 100px 0px;
+flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 }
 
 .rond {
   margin-top: 30px;
+  margin-left: 50px;
   height: 153px;
   width: auto;
+  position: relative;
+
 }
 
+@media (max-width: 900px) {
+  .rond{
+    display: none;
+  }
+
+} 
+@media (max-width: 690px) {
+  .rond{
+    display: none;
+  }
+
+  #banner-container{
+    width: 100%;
+    height: 360px;
+  display: flex;
+flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--bluesky);
+  margin-bottom: 30px;
+  }
+  #userbanner {
+display: none;
+  }
+
+
+
+} 
+
 .profil-h3 {
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 40px;
+  color: var(--blanc);
+  font-family: "Bebas Neue";
+  z-index: 2;
 }
 
 .image-container {
+  display: flex;
+  flex-direction: column;
   position: relative; 
   width: 200px;
   height: 200px; 
+
 }
 
 .image-container button{
   width: 200px;
+  height: 80px;
   margin-top: 30px;
+  padding: 10px;
 }
 
 .image1 {
@@ -800,11 +943,11 @@ h1{
 
 
 #score {
-  margin-top: 20px;
+  margin-top: 70px;
   margin-bottom: 20px;
 }
 
-#userbanner h3,#profil h3 {
+#userbanner h3,#score h3 {
   font-size: 40px;
   color: var(--blanc);
   font-family: "Bebas Neue";
@@ -837,23 +980,24 @@ h2 {
   font-size: 30px;
   font-weight: 700;
   color: var(--blanc);
-  margin-bottom: 30px;
+
   font-family: "Bebas Neue";
-  text-align: left;
+  text-align: center;
   width: 100%; 
   box-sizing: border-box; 
-  margin-left: 50px;
+
 }
 
 .flexwrap {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center; 
+  gap: 15px;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 .flexrow{
-width: 100%;
+width: 98%;
 display: flex;
 flex-direction:row;
 justify-content: space-between;
@@ -872,6 +1016,14 @@ justify-content: space-between;
 #sesvideos {
   margin-top: 50px;
   margin-bottom: 20px;
+}
+
+.flexcolumn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 /*profil fini*/
@@ -895,21 +1047,10 @@ footer {
 
 .footer-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px 60PX 0px 60px;
-}
-
-.left {
-  width: 33%;
-}
-
-
-.center{
-  width: 33%;
-}
-
-.right{
-  width: 33%;
+  gap: 20px;
 }
 
 .social-media {
@@ -936,7 +1077,7 @@ footer {
 
 .input {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   text-align: center;
   align-items: center;
@@ -951,8 +1092,7 @@ footer {
     background-color: var(--vert);
     color: var(--thistle);
     font-size: 16px;
-    margin-right: 20px;
-    width: 200px;
+    width: 150px;
     height: 40px;
 
   }

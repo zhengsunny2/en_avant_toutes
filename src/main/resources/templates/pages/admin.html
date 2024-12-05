@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -96,7 +96,7 @@
     <!-- siderbar -->
     <div class="sidebar">
         <a href="#videos" onclick="showSection('videos')">Gérer les vidéos</a>
-        <a href="#users" onclick="showSection('users')">Gérer les comptes users</a>
+        <a href="#utilisateurs" onclick="showSection('utilisateurs')">Gérer les comptes utilisateurs</a>
         <a href="#messages" onclick="showSection('messages')">Gérer les messages</a>
         <a href="#commentaires" onclick="showSection('commentaires')">Gérer les commentaires</a>
     </div>
@@ -117,7 +117,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Titre</th>
-                        <th>User</th>
+                        <th>Utilisateur</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -144,27 +144,31 @@
             </table>
         </div>
 
-        <div id="users" class="section" style="display: none;">
-            <h2>Gestion des comptes users</h2>
+        <div id="utilisateurs" class="section" style="display: none;">
+            <h2>Gestion des comptes utilisateurs</h2>
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Username</th>
-                       
+                        <th>Nom</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user:${users}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.password}"></td>
-                        <td th:text="${user.username}"></td>
-                       
-
-                       
+                    <tr>
+                        <td>1</td>
+                        <td>Jean Dupont</td>
+                        <td>Actif</td>
+                        <td>
+                            <button>Editer</button>
+                            <button class="delete">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Marie Curie</td>
+                        <td>Désactivé</td>
                         <td>
                             <button>Editer</button>
                             <button class="delete">Supprimer</button>

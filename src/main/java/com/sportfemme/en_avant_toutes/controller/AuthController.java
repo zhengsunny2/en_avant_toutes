@@ -2,12 +2,10 @@ package com.sportfemme.en_avant_toutes.controller;
 
 
 
-import java.net.URI;
-import java.net.http.HttpHeaders;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sportfemme.en_avant_toutes.dto.UserDTO;
+
 import com.sportfemme.en_avant_toutes.dto.UserLoginDTO;
 import com.sportfemme.en_avant_toutes.dto.UserRegisterDTO;
 import com.sportfemme.en_avant_toutes.model.User;

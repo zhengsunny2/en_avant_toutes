@@ -1,0 +1,629 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family:"Bebas Neue", sans-serif;
+  background: linear-gradient(to bottom, #FEA2B9,#00A0B0, rgb(194, 17, 114));
+  width: 100%;
+}
+
+header{
+  width: 100%;
+}
+
+button{
+  text-decoration: none;
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 16px;
+  background-color:#CAF83E;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* NAVBAR */
+nav{
+  width: 100%;
+}
+#accueil {
+  background-image: url(../images/Accueil/ribbons-bottle-dumbbells_23-2147628644.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.navbar {
+  max-width: 1440px ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+#logo-acceuil {
+  width: 200px;
+  /* background-color:rgba(255, 255, 000, 0.5); */
+  /* border-radius: 100px; */
+}
+
+.navbar-lien {
+  display: flex;
+  justify-content: center;
+  gap: 30px; 
+  /* background-color: white; */
+}
+
+.navbar-lien a {
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  color: white;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-lien a:hover {
+  background-color: #CAF83E;
+  color: #00373E;
+}
+
+.navbar-bouton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-bouton button {
+  text-decoration: none;
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 16px;
+  background-color:#CAF83E;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-bouton button:hover {
+  background-color: #CAF83E;
+}
+
+.navbar-bouton img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.navbar-bouton a{
+    text-decoration: none;
+    color: #00373E;
+    font-size: 20px;
+}
+
+.navbar-texte {
+  color: white;
+  text-align: center;
+  font-size: 150px;
+  font-family: "Bebas Neue", sans-serif;
+  margin-top: 50px;
+}
+
+
+
+/* ------NAVBAR FIN---------------------------------NAVBAR FIN----------------------------------------------------NAVBAR FIN-----------------------------------NAVBAR FIN------------------------------------- */
+
+/* ACCUEIL- MAIN */
+
+.texte-defilant {
+    width: 100%; 
+    white-space: nowrap;
+    overflow: hidden; 
+    box-sizing: border-box;
+    background-color:white; 
+    color: #00373E; 
+    padding: 10px 0;
+    font-size: 30px;
+    font-family: "Bebas Neue", sans-serif;
+  }
+
+  .texte-defilant span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: defilement 30s linear infinite; 
+  }
+
+  @keyframes defilement {
+    from {
+      transform: translateX(0); 
+    }
+    to {
+      transform: translateX(-100%); 
+    }
+  }
+
+  #accueil-pele-mele{
+    width: 100% ;
+  }
+ .accueil-pele-mele-1,.accueil-pele-mele-2,.accueil-pele-mele-3{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+ }
+
+ .accueil-pele-mele-1 img,.accueil-pele-mele-2 img,.accueil-pele-mele-3 img{
+  width: 400px;
+  height: 200px;
+
+ }
+
+.accueil-pele-mele-1 img, .accueil-pele-mele-2 img {
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+  justify-content: center;
+  object-position: center;
+  object-fit: cover;
+ }
+
+ .photo-accueil{
+  width: 400px;
+  color:  white;
+  position: relative;
+ }
+
+ .photo-accueil h4{
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centre le texte */
+  color:#00A0B0; /* Couleur de texte pour le contraste */
+  font-size: 40px; /* Taille de texte */
+  text-align: center;
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+ }
+
+ .photo-accueil p {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+  display: none; /* Masqué par défaut */
+}
+
+.photo-accueil:hover p {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%); /* Centre le texte */
+  color: white; /* Couleur de texte pour le contraste */
+  font-size: 30px; /* Taille de texte */
+  text-align:justify ;
+  width: 100%;
+  height: auto;
+ 
+}
+
+.photo-accueil:hover h4{
+  display: none;
+}
+
+.photo-accueil:hover img{
+  background-color: #CAF83E;
+}
+ .accueil-pele-mele-3 img{
+  display: flex;
+  width: 100%;
+  height: 250px;
+  justify-content: center;
+  object-position: center;
+  object-fit: cover;
+ }
+
+  /* -----------GESTION PROFIL-------------------------------------------GESTION PROFIL---------------------------------------GESTION PROFIL------------------------------------------GESTION PROFIL----------------------------------- */
+
+  #gestion-profil {
+    background-image: url(../images/bg2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .form-gestion-profil{
+    width: 850px;
+    margin-left: 22%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color:rgba(0, 160, 176, 0.9) ;
+    padding:50px;
+    display:flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+  }
+
+  .form-gestion-profil input, textarea{
+    width: 300px;
+  height: 30px;
+  display: flex;
+  }
+
+  .form-gestion-profil textarea{
+   height: 200px;
+  }
+
+.form-gestion-profil button{
+  display: flex;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+
+.logo-form-gestion-profil img{
+  max-width: 100%;
+  max-height: 100%;
+  margin: 50px;
+ position: absolute;
+}
+#gestion-profil-photo{
+display: flex;
+margin: 100px;
+gap: 50px;
+justify-content: center;
+}
+
+#gestion-profil-photo img{
+  width: 20%;
+  height: 20%;
+  justify-content: center;
+}
+
+#gestion-profil-photo h3{
+  color: white;
+  text-align: center;
+  font-size: 150px;
+  font-family: "Bebas Neue", sans-serif;
+  margin-top: 50px;
+}
+/* --------------------CONTACT--------------------------------------------------------CONTACT-----------------------------------------CONTACT-----------------------------CONTACT--------------------------------- */
+#contact{
+  background-image: url(../images/Accueil/sortie-femme-sportive-sourire-sincere-posant-dans-vetements-actifs-elegants-studio-utiliser-smartphone-ecouter-musique_273443-1236.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-contact{
+  background-color:rgba(0, 160, 176, 0.3);
+  padding: 50px 50px 30px 50px ;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+
+}
+
+.form-contact input{
+  width: 250px;
+  height: 30px;
+  display: flex;
+}
+
+.form-contact textarea {
+  width: 250px;
+  height: 150px;
+  display: flex;
+}
+
+.form-contact button{
+  display: flex;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#form-contact-msg{
+  margin-top: 15px;
+}
+.logo-form-contact{
+  display: flex;
+}
+
+.logo-form-contact img{
+  object-fit:cover;
+  margin-left: 200px;
+}
+
+
+
+
+/* ----------------CONNEXION---------------------------------------------CONNEXION------------------------------------------------------CONNEXION--------------------------------------CONNEXION------------------------------------------------------------ */
+#connexion {
+  background-image: url(../images/Accueil/femme-prenant-part-au-cours-zumba.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formulaire-connexion {
+  background-color:rgba(24, 160, 176, 0.3);
+  padding: 50px 50px 30px 50px ;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  color: #00373E;
+  font-size: 25px;
+}
+
+.formulaire-connexion input{
+  width: 250px;
+  height: 30px;
+  display: flex;
+}
+
+.formulaire-connexion button{
+  display: flex;
+  font-size: 20px;
+}
+
+.formulaire-connexion a{
+  text-decoration: none;
+  color: #00373E;
+}
+.formulaire-connexion p{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.logo-form-connexion{
+  display: flex;
+}
+
+.logo-form-connexion img{
+  object-fit:cover;
+  margin-left: 200px;
+}
+
+
+/* ----------------------AJOUT-VIDEO-----------------------------------------------AJOUT-VIDEO--------------------------------------------------------------AJOUT-VIDEO----------------------------------------------------------------- */
+
+#ajout-video {background-image: url(../images/bg2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#videos{
+display: flex;
+justify-content: center;
+gap: 50px;
+}
+
+#video1{
+  background-color: #00373E;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+#video2{
+  background-color: #ffffff;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+#videos button{
+ background-color: #CAF83E;
+ color: #00373E;
+ height: 50px;
+ font-size: 30px;
+ justify-content: end;
+}
+
+#plus{
+  border-radius: 100%;
+width: 50px;
+height: 50px;
+}
+ select{
+  width: 300px;
+  height: 30px;
+ }
+/*footer*/
+
+.logo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 20px;
+}
+.logo .logo-container img {
+  width: 100px;
+}
+
+footer {
+  background-color:#00373E ;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60PX 0px 60px;
+}
+
+.left {
+  width: 33%;
+}
+
+
+.center{
+  width: 33%;
+}
+
+.right{
+  width: 33%;
+}
+
+.social-media {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--blanc);
+  font-size: 22px;
+}
+
+.subscribe h3 {
+  color: var(--blanc);
+  font-family:"IBM Plex Sans", sans-serif;
+}
+
+.inputtext {
+  border: none;
+  outline: none;
+  background-color: var(--blanc);
+  width: 300px;
+  height: 40px;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button {
+  cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: var(--vert);
+    color: var(--thistle);
+    font-size: 16px;
+    margin-right: 20px;
+    width: 200px;
+    height: 40px;
+
+  }
+  .button:hover{  
+    background-color: var(--thistle);
+    color: var(--vert);
+  }
+
+.subscribe p{
+  color: var(--blanc);
+  line-height: 30px;
+}
+
+footer hr {
+  margin: 15px;
+  color: var(--blanc);
+}
+
+.copyright {
+  color: var(--thistle);
+  padding: 0px 50px 25px 50px;
+  font-size: 12px;
+  text-align: center;
+}
+
+/*footer*/
+
+@media (max-width: 768px) {
+
+  #logo-acceuil{
+    width: 300px;
+   
+  }
+  .navbar-texte{
+    font-size: 100px;
+  }
+  .navbar{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  }
+
+  .accueil-pele-mele-1, .accueil-pele-mele-2, .accueil-pele-mele-3{
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+@media (max-width: 482px) {
+  header{
+    width: 425px;
+  }
+
+  #logo-acceuil{
+    width: 150px;
+  }
+ #accueil{
+width: 425px;
+ }
+  main{
+    width: 100%;
+  }
+  .navbar-texte{
+    font-size: 70px;
+  }
+  .navbar{
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.navbar-lien{
+  display: flex;
+  flex-direction: column;
+}
+
+.accueil-pele-mele-1, .accueil-pele-mele-2, .accueil-pele-mele-3{
+  display: flex;
+  flex-direction: column;
+}
+}

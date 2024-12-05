@@ -510,8 +510,8 @@ const articles3 = [
                     </div>
                     <div class="overlay ${classModifier}">
                         <div class="articlebg">
-                            <h2>${article.titre}</h2>
-                            <h3>difficulte: ${article.difficulte}</h3>
+                            <h2 class="article-h2">${article.titre}</h2>
+                            <h3 class="article-h3">difficulte: ${article.difficulte}</h3>
                             <div class="info">
                                 <span>${article.categorie}</span>
                                 <span><b>${article.duree}</b></span>

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sportfemme.en_avant_toutes.dto.UserLoginDTO;
@@ -33,28 +33,48 @@ public class MainController {
     this.videoService=videoService;
     this.userService=userService;
     }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "pages/admin";
+    }
     @GetMapping("/index")
     public String index(){
         return "index";
     }
 
-
+    @GetMapping("/inscription")
+    public String inscription(){
+        return "pages/inscription";
+    }
 
      @GetMapping("/contact")
     public String contact(){
         return "pages/contact";
     }
 
-
-    @GetMapping("/admin")
-    public String admin(){
-        return "pages/admin";
-    }
-
     @GetMapping("/profil")
     public String profil(){
         return "pages/profil";
     }
+
+    @GetMapping("/entrainement")
+    public String entrainement(){
+        return "pages/entrainement";
+    }
+    @GetMapping("/nutrition")
+    public String nutrition(){
+        return "pages/nutrition";
+    }
+
+    @GetMapping("/documentaire")
+    public String documentaire(){
+        return "pages/documentaire";
+    }
+
+
+
+
     @GetMapping("/categorie")
     public String categorie() {
         return "pages/categorie";
@@ -87,24 +107,8 @@ public String videoDetail(@PathVariable Long videoId, Model model) {
         return "/index";
     }
 }
-    /* 
-    @GetMapping("videos/video/{id}")
-    public String videoDetail() {
-        return "pages/videoDetail";
-    }
-        */
 
-    @GetMapping("/inscription")
-    public String inscription(){
-        return "pages/inscription";
-    }
     
-/* 
-    @GetMapping("/inscription")
-    public String inscription(){
-        return "pages/inscription";
-    }
-*/
     @GetMapping("/role_list")
     public String role(Model model){
        List<Role> roles=roleService.findAll();

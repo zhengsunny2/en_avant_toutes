@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sportfemme.en_avant_toutes.model.Categorie;
-import com.sportfemme.en_avant_toutes.model.SousCategorie;
 import com.sportfemme.en_avant_toutes.repository.CategorieRepository;
 import com.sportfemme.en_avant_toutes.repository.SousCategorieRepository;
 import com.sportfemme.en_avant_toutes.service.CategorieService;

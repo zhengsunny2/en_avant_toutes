@@ -1,11 +1,11 @@
 package com.sportfemme.en_avant_toutes.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.stereotype.Service;
 
-import com.sportfemme.en_avant_toutes.model.Categorie;
+
 import com.sportfemme.en_avant_toutes.model.SousCategorie;
 
 
