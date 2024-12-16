@@ -1,131 +1,140 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="fr" xmlns="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/Javascript/ajoutervideo.js">
-    <title>Video Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            text-decoration: none;
-            color: #007BFF;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        label {
-            font-size: 14px;
-            margin-bottom: 5px;
-            display: block;
-        }
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="file"] {
-            padding: 8px;
-            margin-bottom: 15px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .response {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .video-info {
-            margin-top: 20px;
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../assets/css/index-gestion_profil-contact.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="../assets/Javascript/ajoutervideo.js"></script>
+<title>Accueil-SportFemme</title>
 </head>
 <body>
-    <div class="container">
+<header>
+    <nav id="ajout-video">
+        <div class="navbar">
 
-        <h1>Directories</h1>
-        <ul>
-            <th:block th:each="categorie : ${categories}">
-                <li>
-                    <strong th:text="${categorie.name}"></strong>
-                    <ul>
-                        <th:block th:each="sousCategorie : ${categorie.sousCategories}">
-                            <li>
-                                <a th:href="@{/categorie/{id}(id=${sousCategorie.id})}" th:text="${sousCategorie.name}"></a>
-                            </li>
-                        </th:block>
-                    </ul>
-                </li>
-            </th:block>
-        </ul>
+                <a href="index.html"><img id="logo-acceuil" src="../assets/images/logo.png" alt="logo"></a>
+                
+                <div class="navbar-lien">
+                    
+                    <li><a href="/index">ACCUEIL</a></li>
+                    <li><a href="/entrainement">ENTRAINEMENTS</a></li>
+                    <li><a href="/nutrition">NUTRITION</a></li>
+                    <li><a href="/documentaire">DOCUMENTAIRES</a></li>
+                    <li><a href="/contact">CONTACT</a></li>
+                    
+                </div>
+
+                <div class="navbar-bouton">
+                    <a href="pages/profil.html"><img src="../assets/images/profilimg.png" alt="image-profil"></a>
+                    <button><a href="/inscription">SE CONNECTER</a></button>
+                </div>
+        </div>
+    
+    </nav> 
+</header>
+<main>
+    <div id="gestion-profil-photo">
+        <img src="../assets/images/avatar.png" alt="">
+    <h3 id="user" th:text="${loggedInUser?.username}"></h3>
+    </div>
+    <div id="videos">
+        <div id="video1"> <button id="plus">+</button><button>Ajouter une vidéo</button></div>
+        <div id="video2"><button id="plus">+</button><button>Ajouter une photo</button></div>
     </div>
 
-    <div class="container">
-        <div id="user" th:text="${loggedInUser?.username}"></div>
-        <h1>Upload Video</h1>
-        <form id="uploadForm" enctype="multipart/form-data">
-            <label for="titre">Title:</label>
-            <input type="text" id="titre" name="titre" required>
-            <!-- categorie (Categorie) -->
-            <label for="categorie">Categorie:</label>
+    <div class="logo-form-gestion-profil">
+        <img src="../assets/images/Logo-Icones/icone-sapin-sans-fond.png" alt="">
+            <form id="uploadForm" class="form-gestion-profil" enctype="multipart/form-data">
+          <div>
+             <label >Nom de la video</label>
+             <input type="text" id="titre" name="titre" required>
+          </div>
+          <div>
+            <label >Description</label>
+            <textarea id="description" name="description" required></textarea>
+         </div>
+         <div>
+            <label >Calories</label><br>
+            <select name="calories" >Nombre de Calories
+                <option value="">Choisir une option</option>
+                <option value="0-90cal">De 0 à 90 calories</option>
+                <option value="90-180cal">De 90 à 180 calories</option>
+                <option value="180-315cal">De 180 à 315 calories</option>
+            </select>
+         </div>
+         <div>
+            <label >Niveau</label><br>
+            <select name="niveau" >Niveau
+                <option value="">Choisir une option</option>
+                <option value="Débutante">Débutante</option>
+                <option value="Intermédiaire">Intermédiaire</option>
+                <option value="Confirmée">Confirmée</option>
+            </select>
+            
+         </div>
+         <div>
+            <label >Categorie</label><br>
             <select id="categorie" name="categorie">
                 <option value="">Select a Categorie</option>
             </select>
-            <!-- SousCategorie (SousCategorie) -->
-            <label for="sousCategorie">SousCategorie (SousCategorie):</label>
+        </div>
+         <div>
+            <label >Sous-catégorie</label><br>
             <select id="sousCategorie" name="sousCategorie" required>
                 <option value="">Select a SousCategorie</option>
             </select>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea>
-
-            <label for="videoFile">Video File:</label>
+         </div>
+         <div>
+         <label for="videoFile">Video File:</label>
             <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
-
+        </div>
+        <div>
             <button type="button" id="addVideoBtn">Upload</button>
-        </form>
-
-        <div id="responseMessage" class="response"></div>
-        <div id="videoInfo" class="video-info"></div>
+        </div>
     </div>
     <script src="../assets/Javascript/ajoutervideo.js"></script>
+</main>
+<footer>
+    <div class="footer-container">
+        <div class="left">                
+            <div class="logo">
+            <div class="logo-container">
+                <a href="index.html"><img src="assets/images/logo.png" alt="logo"></a>
+            </div>
+            <div class="social-media">
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-twitter"></i>
+            </div>
+            </div>
+        </div>
+        <div class="center subscribe p">
+            <p>Adresse: 15 rue henri  chevreau,75011,Paris</p>
+            <p>Tel: 0467897678</p>
+            <p>Email: contact@sportfemme.com</p>
+        </div>
+        <div class="right">
+            <div class="subscribe">
+                <h3>Abonnez vous</h3>
+                <p>Entrez votre email ici pour recevoir des notifications</p>
+                <form>
+                    <div class="input">
+                        <input type="email" class="inputtext">
+                        <input type="button" value="S'INSCRIRE" class="button">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+            
+        </div>       
+    </div>
+    <hr>
+    <div class="copyright">
+        <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
+    </div>
+</footer>
 </body>
 </html>
