@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 
 
@@ -34,8 +35,10 @@ public class VideoServiceImpl implements VideoService {
     private final UserRepository userRepository;
      private final VideoRepository videoRepository;
 
-     @Value("${video.upload.path}")
+     @Value("${video_static.upload.path}")
      private String videoUploadPath;
+ 
+ 
   
     public VideoServiceImpl(UserRepository userRepository,SousCategorieRepository sousCategorieRepository, VideoRepository videoRepository) {
         this.userRepository=userRepository;
@@ -49,31 +52,30 @@ public class VideoServiceImpl implements VideoService {
             .orElseThrow(() -> new NoSuchElementException("video with ID " + id + " not found"));
 }
 @Override
-public String  saveVideoFile(MultipartFile videoFile)throws IOException{
-        // MultipartFile videoFile = uploadForm.getFichier();
-        String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
-        Path filePath = Paths.get(videoUploadPath, fileName);
-       // videoFile.transferTo(filePath); simple save the files
-       // return filePath.toString();
-        try {
-            Files.createDirectories(filePath.getParent());
+public String saveVideoFile(MultipartFile videoFile) throws IOException {
+    String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
+    Path storageDir = Path.of(videoUploadPath);
     
-            try (InputStream in = videoFile.getInputStream();
-                 OutputStream out = new FileOutputStream(filePath.toFile())) {
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, len);
-                }
-            }
-    
-            return "/assets/video/" + fileName;
-    
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+    // Ensure the directory exists
+    if (!Files.exists(storageDir)) {
+        Files.createDirectories(storageDir);
     }
+    
+    Path filePath = storageDir.resolve(fileName);
+
+    // Save the file using Files.copy
+    try (InputStream inputStream = videoFile.getInputStream()) {
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+        throw new IOException("Failed to save video file: " + e.getMessage(), e);
+    }
+
+    return "/files/" +fileName;
+}
+
+public Path getVideoPath(String fileName) {
+    return Path.of(videoUploadPath).resolve(fileName);
+}
   
     
     @Override
