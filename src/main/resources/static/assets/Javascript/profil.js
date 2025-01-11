@@ -1,17 +1,15 @@
 
-const authToken = localStorage.getItem('authToken');
+    AuthService.getProfilData(userId)
+      .then(data => {
+        if (data) {
+          console.log("User profile data:", data);
+          document.getElementById('profileName').innerText = data.username || "Unknown User";
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching profile:", error.message);
+        alert("Erreur lors de la récupération des données du profil !");
+        window.location.href = '/inscription';
+      });
 
-fetch('http://localhost:8080/profil', {
-    method: 'GET',
-    headers: {
-        'Authorization': `Bearer ${authToken}` 
-    }
-})
-.then(response => {
-    if (!response.ok) {
-        console.error('Failed to fetch protected resource');
-    }
-    return response.json();
-})
-.then(data => console.log(data))
-.catch(error => console.error(error));
+  

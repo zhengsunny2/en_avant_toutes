@@ -14,31 +14,28 @@ function loadCategories() {
         .catch(error => console.error('Error fetching categories:', error));
 }
 
-window.onload = function() {
-    loadCategories();
-};
 
 function loadSubCategories(categorieId) {
-fetch(`http://localhost:8080/categories/${categorieId}/sousCategories`)
-.then(response => {
-    if (!response.ok) {
-        throw new Error('Failed to fetch subcategories');
-    }
-    return response.json();
-})
-.then(data => {
-    const subCategorieSelect = document.getElementById('sousCategorie');
-    subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
-    data.forEach(SousCategorie => {
-        const option = document.createElement('option');
-        option.value = SousCategorie.id; 
-        option.textContent = SousCategorie.name; 
-        subCategorieSelect.appendChild(option); 
+    fetch(`http://localhost:8080/categories/${categorieId}/sousCategories`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch subcategories');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const subCategorieSelect = document.getElementById('sousCategorie');
+        subCategorieSelect.innerHTML = '<option value="">Select a SousCategorie</option>';
+        data.forEach(SousCategorie => {
+            const option = document.createElement('option');
+            option.value = SousCategorie.id; 
+            option.textContent = SousCategorie.name; 
+            subCategorieSelect.appendChild(option); 
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching subcategories:', error);
     });
-})
-.catch(error => {
-    console.error('Error fetching subcategories:', error);
-});
 }
 
 // Event listener to load subcategories when a category is selected

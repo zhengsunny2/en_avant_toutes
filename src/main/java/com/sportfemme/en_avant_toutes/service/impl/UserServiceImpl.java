@@ -3,7 +3,7 @@ package com.sportfemme.en_avant_toutes.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 
 import com.sportfemme.en_avant_toutes.dto.UserRegisterDTO;
+import com.sportfemme.en_avant_toutes.model.Role;
 import com.sportfemme.en_avant_toutes.model.User;
+import com.sportfemme.en_avant_toutes.repository.RoleRepository;
 import com.sportfemme.en_avant_toutes.repository.UserRepository;
 
 import com.sportfemme.en_avant_toutes.service.UserService;
@@ -23,9 +25,11 @@ import com.sportfemme.en_avant_toutes.service.UserService;
 @Component
 public class UserServiceImpl  implements UserService {
     @Autowired
+    private RoleRepository roleRepository;
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public UserServiceImpl(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(RoleRepository roleRepository,UserRepository userRepository,PasswordEncoder passwordEncoder) {
+        this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -33,9 +37,12 @@ public class UserServiceImpl  implements UserService {
 
 @Override
 public User registerUser(UserRegisterDTO userRegisterDTO){
+    Role userRole = roleRepository.findByName("USER");
         User user = new User();
         user.setUsername(userRegisterDTO.getUsername());
         user.setPassword(hashPassword(userRegisterDTO.getPassword())); 
+        user.setActive(true);
+        user.setRole(userRole);
         return userRepository.save(user);
     }
 
@@ -74,13 +81,9 @@ private String hashPassword(String password) {
         return userRepository.findByEmailAndPassword(email,password);
     }
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findAll()
-        .stream()
-        .filter(u -> u.getUsername().equalsIgnoreCase(username))
-        .findFirst()
-        .orElse(null);
-    }
+   public User findByUsername(String username) {
+    return userRepository.findByUsername(username);
+}
   
     @Override
     public void delete(String email) {

@@ -1,11 +1,5 @@
-/*
-const users = JSON.parse(localStorage.getItem('users')) || [];
 
-function saveUser(username, password) {
-    users.push({ username, password });
-    localStorage.setItem('users', JSON.stringify(users));
-}
-*/
+
 //rigister
 function registerPage() {
     document.getElementById('connectPage').style.display = 'none';
@@ -19,16 +13,19 @@ function loginPage() {
 }
 
 // button to register page
-document.getElementById('newUserLink').addEventListener('click', registerPage);
+
+
+
 
 // button to login page
 document.getElementById('connectpage').addEventListener('click', loginPage);
+document.getElementById('newUserLink').addEventListener('click', registerPage);
 
 // Connect button functionality
 document.getElementById('connectButton').addEventListener('click', function() {
     const username = document.getElementById('connectUser').value;
     const password = document.getElementById('connectPassword').value;
-fetch('http://localhost:8080/inscription/login', {
+fetch('/inscription/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -47,15 +44,11 @@ fetch('http://localhost:8080/inscription/login', {
             return response.json();
         })
         .then(data => {
-            if (data.token && data.redirect)
+            if (data.token && data.userId)
                 {
-                    if (readCookie('auth-token-vod')==null) 
-                    {
-                        createCookie('auth-token-vod',data.token,2);
-                    }
-             localStorage.setItem('authToken', data.token);
-            alert(`Bienvenue, ${username}!`);
-            window.location.href = data.redirect;
+               localStorage.setItem('authToken', data.token);
+               localStorage.setItem('userId', data.userId);
+             window.location.href = `http://localhost:8080/profil/${data.userId}`;
                 }
                 else if (data.status==404)
                 {
@@ -90,9 +83,10 @@ document.getElementById('inscrireButton').addEventListener('click', function() {
     })
     .then(data => {
         console.log('Parsed JSON Data:', data);
-        localStorage.setItem('authToken', data.token);
         alert('Inscription réussie!');
-        window.location.href = 'http://localhost:8080/video';
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('userId', data.userId);
+        window.location.href = `http://localhost:8080/profil/${data.userId}`;
     })
     .catch(err => {
         console.error('Error:', err);
@@ -122,36 +116,10 @@ function logout() {
     window.location.href = '/inscription';
 }
 
+
 // Update header on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateHeader();  // Update header when the page loads
 });
 
 
-  //+ d'infos sur les cookies en javascript : https://www.quirksmode.org/js/cookies.html
-  function createCookie(name, value, days) {
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));  
-        var expires = "; expires=" + date.toGMTString();
-    } else {
-        var expires = "";
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-
-function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function eraseCookie(name) {
-    createCookie(name, "", -1);
-}

@@ -30,6 +30,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Video> videos;
 
+    @ManyToOne
+    private Role role;
+
     /* 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -41,6 +44,7 @@ public class User {
    // @Lob
   //  private byte[] avatar;
 
-private boolean active;
+private boolean active= true;
+
 
 }

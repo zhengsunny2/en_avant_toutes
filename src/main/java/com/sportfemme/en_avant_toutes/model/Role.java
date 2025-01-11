@@ -23,4 +23,7 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private List<Utilisateur> utilisateurs;
 
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
+
 }

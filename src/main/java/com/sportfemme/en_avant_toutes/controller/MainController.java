@@ -20,60 +20,52 @@ import com.sportfemme.en_avant_toutes.service.VideoService;
 
 import jakarta.servlet.http.HttpSession;
 
-
-
 @Controller
 public class MainController {
     private final RoleService roleService;
     private VideoService videoService;
-    private  UserService userService;
+    private UserService userService;
 
-    public MainController(UserService userService,RoleService roleService,VideoService videoService) {
-    this.roleService = roleService;
-    this.videoService=videoService;
-    this.userService=userService;
+    public MainController(UserService userService, RoleService roleService, VideoService videoService) {
+        this.roleService = roleService;
+        this.videoService = videoService;
+        this.userService = userService;
     }
 
     @GetMapping("/admin")
-    public String admin(){
+    public String admin() {
         return "pages/admin";
     }
+
     @GetMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/inscription")
-    public String inscription(){
+    public String inscription() {
         return "pages/inscription";
     }
 
-     @GetMapping("/contact")
-    public String contact(){
+    @GetMapping("/contact")
+    public String contact() {
         return "pages/contact";
     }
 
-    @GetMapping("/profil")
-    public String profil(){
-        return "pages/profil";
-    }
-
     @GetMapping("/entrainement")
-    public String entrainement(){
+    public String entrainement() {
         return "pages/entrainement";
     }
+
     @GetMapping("/nutrition")
-    public String nutrition(){
+    public String nutrition() {
         return "pages/nutrition";
     }
 
     @GetMapping("/documentaire")
-    public String documentaire(){
+    public String documentaire() {
         return "pages/documentaire";
     }
-
-
-
 
     @GetMapping("/categorie")
     public String categorie() {
@@ -81,46 +73,43 @@ public class MainController {
     }
 
     @GetMapping("/video")
-public String video(HttpSession session, Model model) {
-    UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
-    if (loggedInUserDTO != null) {
-        User loggedInUser = userService.findByUsernameAndPassword(
-        loggedInUserDTO.getUsername(),
-        loggedInUserDTO.getPassword()
-        );
-        model.addAttribute("loggedInUser", loggedInUser);
-        return "pages/video";
-    } else {
-        return "redirect:/inscription";
+    public String video(HttpSession session, Model model) {
+        UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
+        if (loggedInUserDTO != null) {
+            User loggedInUser = userService.findByUsernameAndPassword(
+                    loggedInUserDTO.getUsername(),
+                    loggedInUserDTO.getPassword());
+            model.addAttribute("loggedInUser", loggedInUser);
+            return "pages/video";
+        } else {
+            return "redirect:/inscription";
+        }
     }
-}
-
 
     @GetMapping("/video/{videoId}")
-public String videoDetail(@PathVariable Long videoId, Model model) {
-    Video video = videoService.findById(videoId);
-    if (video != null) {
-        model.addAttribute("video", video);
-        //model.addAttribute("username", video.getUser().getUsername());
-        model.addAttribute("videoPageUrl", video.getPath());
-        return "pages/videoDetail";
-    } else {
-        return "/index";
+    public String videoDetail(@PathVariable Long videoId, Model model) {
+        Video video = videoService.findById(videoId);
+        if (video != null) {
+            model.addAttribute("video", video);
+            // model.addAttribute("username", video.getUser().getUsername());
+            model.addAttribute("videoPageUrl", video.getPath());
+            return "pages/videoDetail";
+        } else {
+            return "/index";
+        }
     }
-}
 
-    
     @GetMapping("/role_list")
-    public String role(Model model){
-       List<Role> roles=roleService.findAll();
-       model.addAttribute("roles", roles);
+    public String role(Model model) {
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("roles", roles);
         return "pages/role";
     }
 
     @PostMapping("/role_add")
-    public String AddRole(@RequestParam("name") String name){
-        System.out.println("name:"+name);
-        Role role=new Role();
+    public String AddRole(@RequestParam("name") String name) {
+        System.out.println("name:" + name);
+        Role role = new Role();
         role.setName(name);
         roleService.save(role);
         return "redirect:/role_list";

@@ -33,21 +33,25 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseEntity<?>register(@RequestBody UserRegisterDTO userRegisterDTO) {
         try {
             User user=userService.registerUser(userRegisterDTO);
-             Map<String, String> response = new HashMap<>();
-        response.put("message", "User registered successfully");
-        response.put("token", "generated-auth-token");
-        return ResponseEntity.ok()
-    .contentType(MediaType.APPLICATION_JSON)
-    .body(response);
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "User registered successfully");
+            response.put("token", "generated-auth-token");
+            response.put("userId", user.getId());
+            response.put("profileUrl", "/profil/" + user.getId());
+            return ResponseEntity.ok(response);
+            // return ResponseEntity.ok()
+            // .contentType(MediaType.APPLICATION_JSON)
+            // .body(response);
         } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("message", "User registration failed: An unexpected error occurred");
-            return ResponseEntity.badRequest()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        //    return ResponseEntity.badRequest()
+         //           .contentType(MediaType.APPLICATION_JSON)
+         //          .body(response);
         }
     }
 
@@ -61,7 +65,7 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
             response.put("token", "generated-auth-token");
-            response.put("redirect", "/video");
+            response.put("redirect", "/profil/" + user.getId());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, Object> errorResponse = new HashMap<>();

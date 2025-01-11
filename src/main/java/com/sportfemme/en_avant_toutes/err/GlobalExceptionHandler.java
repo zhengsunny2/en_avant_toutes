@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.ui.Model;
 
 @RestController
 public class GlobalExceptionHandler {
@@ -37,6 +39,12 @@ public class GlobalExceptionHandler {
     public APIErrorMessage unknownException(Exception ex) {
         ex.printStackTrace();
         return new APIErrorMessage(500, "Erreur interne du serveur", ex.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public String handleAccessDeniedException(AccessDeniedException ex, Model model) {
+        model.addAttribute("error", "You are not authorized to access this page.");
+        return "error/403"; // 403
     }
 
 }

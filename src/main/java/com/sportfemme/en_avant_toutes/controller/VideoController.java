@@ -41,18 +41,15 @@ public class VideoController {
             @RequestParam("videoFile") MultipartFile videoFile,
             HttpSession session) {
     
-        // get UserLoginDTO from session
-        UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
-        if (loggedInUserDTO == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
-        }
+        // // get UserLoginDTO from session
+        // UserLoginDTO loggedInUserDTO = (UserLoginDTO) session.getAttribute("loggedInUser");
+        // if (loggedInUserDTO == null) {
+        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+        // }
     
         try {
             // UserService get user 
-            User loggedInUser = userService.findByUsernameAndPassword(
-                loggedInUserDTO.getUsername(), 
-                loggedInUserDTO.getPassword()
-            );
+            User loggedInUser = (User) session.getAttribute("loggedInUser")
     
             // save video and get the url of video
             String videoPageUrl = videoService.saveVideoFile(videoFile);

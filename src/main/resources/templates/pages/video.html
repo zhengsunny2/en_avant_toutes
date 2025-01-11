@@ -37,7 +37,7 @@
 <main>
     <div id="gestion-profil-photo">
         <img src="../assets/images/avatar.png" alt="">
-    <h3 id="user" th:text="${loggedInUser?.username}"></h3>
+    <h3 id="user" class="profil-h3"><span th:text="${user.username}"></span></h3>
     </div>
     <div id="videos">
         <div id="video1"> <button id="plus">+</button><button>Ajouter une vidéo</button></div>

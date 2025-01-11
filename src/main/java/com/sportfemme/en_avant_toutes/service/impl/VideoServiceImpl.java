@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -51,6 +52,12 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("video with ID " + id + " not found"));
 }
+@Override
+public List<Video> findByUserId(Long userId) {
+    return videoRepository.findByUserId(userId);
+
+}
+
 @Override
 public String saveVideoFile(MultipartFile videoFile) throws IOException {
     String fileName = System.currentTimeMillis() + "_" + videoFile.getOriginalFilename();
@@ -85,6 +92,8 @@ public Path getVideoPath(String fileName) {
         User user=userRepository.findById(userId) 
         .orElseThrow(() -> new NoSuchElementException("User with ID " + sousCategorieId + " not found"));
         
+
+
         String  videoPath = saveVideoFile(videoFile);
         Video video = new Video();
         video.setTitre(titre);

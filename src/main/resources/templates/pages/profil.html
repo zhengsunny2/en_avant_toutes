@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="../assets/Javascript/head.js"></script>
     <script src="../assets/Javascript/inscription.js"></script>
+    <script src="../assets/Javascript/profil.js"></script>
+    <script  src="../assets/Javascript/AuthService.js"></script>
+    
     <title>Profil-SportFemme</title>
 </head>
 <body>
@@ -33,13 +36,20 @@
            </div>  
            
         </nav> 
+        <!--  changer nav a user
+       <nav>
+            <a href="/" th:if="${not #httpServletRequest.remoteUser}">Login</a>
+            <a th:href="@{/profil/{id}(id=${#httpServletRequest.remoteUser})}" 
+               th:if="${#httpServletRequest.remoteUser}">My Profile</a>
+        </nav>
+        -->
     </header>
     <main class="mainbg">
        <div id="banner-container">  
           <div id="userbanner"> </div>
                 <div><img src="../assets/images/img1.png" alt="" class="rond"></div>
                  <div class="profil-h3"><h3>BIENVENNUE SUR TA PAGE</h3>
-                  <h3 class="profil-h3">JOHANA</h3>
+                  <h3 class="profil-h3"><span th:text="${user.username}"></span></h3>
                  </div>
                 <div class="image-container">
                     <img src="../assets/images/avatar.png" alt="Avatar" class="image1">
@@ -65,10 +75,18 @@
                 </div>
                 <div class="scorebox" style="background-color: var(--vert);">
                     <h4>AJOUTER DES VIDEOS</h4>
-                 <a href="../pages/mesvideos.html"><img src="../assets/images/add.png" alt=""></a>   
+                 <a href="/profil/add_video"><img src="../assets/images/add.png" alt=""></a>   
                 </div>
             </div>
           </div>
+          <div>
+  <h3>My Videos</h3>
+  <ul>
+      <th:block th:each="video : ${videos}">
+          <li th:text="${video.titre}"></li>
+      </th:block>
+  </ul>
+  </div>
           <div id="prefere">
             <div class="flexrow"><h1>VIDEOS</h1><div class="plus"><a href="../pages/mesvideos.html" target="_blank">PLUS>>   </a></div></div>
            <div class="flexwrap">
@@ -293,5 +311,8 @@
             <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
         </div>
     </footer>
+    <script src="../assets/Javascript/inscription.js"></script>
+    <script src="../assets/Javascript/profil.js"></script>
+    <script src="../assets/Javascript/AuthService.js"></script>
 </body>
 </html>
