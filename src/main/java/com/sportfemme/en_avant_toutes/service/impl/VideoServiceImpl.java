@@ -86,7 +86,7 @@ public Path getVideoPath(String fileName) {
   
     
     @Override
-    public Video saveVideo(String titre, String description, Long userId, Long sousCategorieId, MultipartFile videoFile) throws IOException {
+    public Video saveVideo(String titre, String description, Long userId, Long sousCategorieId, String videoPath) throws IOException {
        SousCategorie sousCategorie = sousCategorieRepository.findById(sousCategorieId)
         .orElseThrow(() -> new NoSuchElementException("SousCategorie with ID " + sousCategorieId + " not found"));
         User user=userRepository.findById(userId) 
@@ -94,7 +94,7 @@ public Path getVideoPath(String fileName) {
         
 
 
-        String  videoPath = saveVideoFile(videoFile);
+        // String  videoPath = saveVideoFile(videoFile);
         Video video = new Video();
         video.setTitre(titre);
         video.setDescription(description);

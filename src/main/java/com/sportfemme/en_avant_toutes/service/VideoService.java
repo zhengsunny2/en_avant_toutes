@@ -17,7 +17,7 @@ public interface VideoService {
     public Video findById(Long id);
     public List<Video> findByUserId(Long userId);
     public String  saveVideoFile(MultipartFile videoFile)throws IOException;
-    public Video saveVideo(String titre, String description,Long userId,Long sousCategorieId, MultipartFile videoFile)throws IOException ;
+    public Video saveVideo(String titre, String description,Long userId,Long sousCategorieId, String videoPath)throws IOException ;
             /* 
     public void saveVideo(String fullPath);
    public List<Video> findBySousCategorie_Categorie(Categorie categorie);

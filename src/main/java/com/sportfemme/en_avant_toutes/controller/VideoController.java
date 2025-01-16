@@ -49,7 +49,7 @@ public class VideoController {
     
         try {
             // UserService get user 
-            User loggedInUser = (User) session.getAttribute("loggedInUser")
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
     
             // save video and get the url of video
             String videoPageUrl = videoService.saveVideoFile(videoFile);
@@ -59,7 +59,7 @@ public class VideoController {
             }
     
             //save video in the SQL
-            Video video = videoService.saveVideo(titre, description, loggedInUser.getId(), sousCategorieId, videoFile);
+            Video video = videoService.saveVideo(titre, description, loggedInUser.getId(), sousCategorieId, videoPageUrl);
     
             //response
             Map<String, Object> response = new HashMap<>();
