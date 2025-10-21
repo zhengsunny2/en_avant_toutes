@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
 
@@ -113,3 +114,118 @@
     <script src="../assets/Javascript/auth.js"></script> 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <title>Contact</title>
+</head>
+
+<body background="../assets/images/bg5.png">
+    <header>
+        <nav>
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <a href="/index"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <ul class="navbar-links">
+                    <li><a href="/index">ACCUEIL</a></li>
+                    <li><a href="/entrainement">ENTRAINEMENTS</a></li>
+                    <li><a href="/nutrition">NUTRITION</a></li>
+                    <li><a href="/documentaire">DOCUMENTAIRES</a></li>
+                    <li><a href="/contact">CONTACT</a></li>
+                </ul>
+                <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <button id="connect"><a href="/inscription">SE CONNECTER</a></button>
+            </div>  
+        </nav>
+    </header>
+    
+    <main>
+        <div id="logincontainer">
+            <div><img src="../assets/images/img1.png" alt=""></div>
+            <form method="post" action="/login"  id="connectPage" style="display: block;">
+                <h1>CONNEXION</h1>
+                <div class="page">
+                <div>
+                    <label for="connectUser">E-MAIL</label>
+                    <input type="text" id="connectUser" name="username">
+                </div>
+                <div>
+                    <label for="connectPassword">MOT DE PASS</label>
+                    <input type="password" id="connectPassword" name="password">
+                    <P>Mot de passe oublié?</P>
+                </div>
+                <button  type="submit"  class="button" >CONNECT</button>
+                <a href="javascript:void(0)" id="newUserLink">Créer un compte!</a>
+                </div>
+            </form>
+    
+            <form method="post" action="/inscription/register" id="inscrirePage" style="display: none;">
+                <h1>INSCRIRE</h1>
+                <div class="page" >
+                <div>
+                    <label for="inscrireUser">E-MAIL</label>
+                    <input type="text" id="inscrireUser" name="username">
+                </div>
+                <div>
+                    <label for="inscrirePassword">MOT DE PASS</label>
+                    <input type="password" id="inscrirePassword" name="password">
+                </div>
+                <button type="button"  id="inscrireButton" class="button">S'INSCRIRE</button>
+                <a href="javascript:void(0)" id="connectpage">Retour à la connexion!</a>
+                 </div>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="left">                
+                <div class="logo">
+                <div class="logo-container">
+                    <a href="/index"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <div class="social-media">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                </div>
+            </div>
+            <div class="center subscribe p">
+                <p>Adresse: 15 rue henri  chevreau,75011,Paris</p>
+                <p>Tel: 0467897678</p>
+                <p>Email: contact@sportfemme.com</p>
+            </div>
+            <div class="right">
+                <div class="subscribe">
+                    <h3>Abonnez vous</h3>
+                    <p>Entrez votre email ici pour recevoir des notifications</p>
+                    <form>
+                        <div class="input">
+                            <input type="email" class="inputtext">
+                            <input type="button" value="S'INSCRIRE" class="button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+               
+            </div>       
+        </div>
+        <hr>
+        <div class="copyright">
+            <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+>>>>>>> 61f8f1577cd3b04242c45342950e6bd0f9843802

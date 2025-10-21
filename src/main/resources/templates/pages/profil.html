@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="fr" xmlns="http://www.thymeleaf.org">
 <head>
@@ -315,3 +316,323 @@
     <script src="../assets/Javascript/profil.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="../assets/Javascript/head.js"></script>
+    <script src="../assets/Javascript/inscription.js"></script>
+    <script src="../assets/Javascript/profil.js"></script>
+    <script  src="../assets/Javascript/AuthService.js"></script>
+    
+    <title>Profil-SportFemme</title>
+</head>
+<body>
+    <header class="headerbg2">
+        <nav>
+            <div class="navbar-container">
+                    <div class="logo-container">
+                        <a href="../index.html"><img src="../assets/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="menu-button" onclick="toggleMenu()">☰</div>
+                    <ul class="navbar-links">
+                        <li><a href="/index">ACCUEIL</a></li>
+                        <li><a href="/entrainement">ENTRAINEMENTS</a></li>
+                        <li><a href="/nutrition">NUTRITION</a></li>
+                        <li><a href="/documentaire">DOCUMENTAIRES</a></li>
+                        <li><a href="/contact">CONTACT</a></li>
+                    </ul>
+                    <div class="iconCompte-wrapper">
+                        <div class="iconCompte"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        </div>  <div id="goToLoginButton" class="profil-picture-container">
+                        <a href="/profil"><img  src="../assets/images/profile-pic-navbar.png" alt="profil-picture"></a>
+                    </div>
+                    <button id="connect"><a href="/inscription">SE CONNECTER</a></button>
+           </div>  
+           
+        </nav> 
+        <!--  changer nav a user
+       <nav>
+            <a href="/" th:if="${not #httpServletRequest.remoteUser}">Login</a>
+            <a th:href="@{/profil/{id}(id=${#httpServletRequest.remoteUser})}" 
+               th:if="${#httpServletRequest.remoteUser}">My Profile</a>
+        </nav>
+        -->
+    </header>
+    <main class="mainbg">
+       <div id="banner-container">  
+          <div id="userbanner"> </div>
+                <div><img src="../assets/images/img1.png" alt="" class="rond"></div>
+                 <div class="profil-h3"><h3>BIENVENNUE SUR TA PAGE</h3>
+                  <h3 class="profil-h3"><span th:text="${user.username}"></span></h3>
+                 </div>
+                <div class="image-container">
+                    <img src="../assets/images/avatar.png" alt="Avatar" class="image1">
+                    <img src="../assets/images/add.png" alt="Add" class="image2">
+                    <button class="button">GERER VOTRE PROFIL</button>
+                </div>
+         
+        </div>
+        <div id="profil">
+          <div id="score">
+            <div class="flexwrap">
+                <div class="scorebox" style="background-color: var(--thistle);">
+                    <h4 style="color:white">ENTRAINEMENTS</h4>
+                    <h3>33</h3>
+                </div>
+                <div class="scorebox" style="background-color:var(--bluesky);">
+                    <h4>DUREE MOYENNE</h4>
+                    <h3>20 MIN</h3>
+                </div>
+                <div class="scorebox" style="background-color: var(--pink);">
+                    <h4>COMMENTAIRES</h4>
+                    <h3>33</h3>
+                </div>
+                <div class="scorebox" style="background-color: var(--vert);">
+                    <h4>AJOUTER DES VIDEOS</h4>
+                 <a href="/profil/add_video"><img src="../assets/images/add.png" alt=""></a>   
+                </div>
+            </div>
+          </div>
+          <div>
+  <h3>My Videos</h3>
+  <ul>
+      <th:block th:each="video : ${videos}">
+          <li th:text="${video.titre}"></li>
+      </th:block>
+  </ul>
+  </div>
+          <div id="prefere">
+            <div class="flexrow"><h1>VIDEOS</h1><div class="plus"><a href="../pages/mesvideos.html" target="_blank">PLUS>>   </a></div></div>
+           <div class="flexwrap">
+                <div class="article style1">
+                    <a href="../pages/entrainement-fiche.html" target="_blank">
+                        <img src="../assets/images/D8.jpg" alt="${article.titre}"  class="large-image">
+                        <div class="small-image-wrapper style1">
+                            <img src="../assets/images/video.png" alt="" class="small-image">
+                        </div>
+                        <div class="overlay style1">
+                            <div class="articlebg">
+                                <h2 class="article-h2">Salade de vege</h2>
+                                <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                <div class="info">
+                                    <span>nutrition</span>
+                                    <span><b>Time:10min</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="article style1">
+                        <a href="../pages/entrainement-fiche.html" target="_blank">
+                            <img src="../assets/images/D9.jpg" alt="${article.titre}"  class="large-image">
+                            <div class="small-image-wrapper style1">
+                                <img src="../assets/images/video.png" alt="" class="small-image">
+                            </div>
+                            <div class="overlay style1">
+                                <div class="articlebg">
+                                    <h2 class="article-h2">Salade de vege</h2>
+                                    <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                    <div class="info">
+                                        <span>nutrition</span>
+                                        <span><b>Time:10min</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="article style1">
+                            <a href="../pages/entrainement-fiche.html" target="_blank">
+                                <img src="../assets/images/D6.jpg" alt="${article.titre}"  class="large-image">
+                                <div class="small-image-wrapper style1">
+                                    <img src="../assets/images/video.png" alt="" class="small-image">
+                                </div>
+                                <div class="overlay style1">
+                                    <div class="articlebg">
+                                        <h2 class="article-h2">Salade de vege</h2>
+                                        <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                        <div class="info">
+                                            <span>nutrition</span>
+                                            <span><b>Time:10min</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+          </div>
+          <div id="sesvideos">
+            <div class="flexrow"><h1>FAVORIS</h1><div class="plus"><a href="../pages/favoris.html" target="_blank">PLUS>>   </a></div></div>
+            <div class="flexwrap">
+                <div class="article style1">
+                    <a href="../pages/entrainement-fiche.html" target="_blank">
+                        <img src="../assets/images/N25.jpg" alt="${article.titre}"  class="large-image">
+                        <div class="small-image-wrapper style1">
+                            <img src="../assets/images/video.png" alt="" class="small-image">
+                        </div>
+                        <div class="overlay style1">
+                            <div class="articlebg">
+                                <h2 class="article-h2">Salade de vege</h2>
+                                <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                <div class="info">
+                                    <span>nutrition</span>
+                                    <span><b>Time:10min</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="article style1">
+                        <a href="../pages/entrainement-fiche.html" target="_blank">
+                            <img src="../assets/images/N26.jpg" alt="${article.titre}"  class="large-image">
+                            <div class="small-image-wrapper style1">
+                                <img src="../assets/images/video.png" alt="" class="small-image">
+                            </div>
+                            <div class="overlay style1">
+                                <div class="articlebg">
+                                    <h2 class="article-h2">Salade de vege</h2>
+                                    <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                    <div class="info">
+                                        <span>nutrition</span>
+                                        <span><b>Time:10min</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="article style1">
+                            <a href="../pages/entrainement-fiche.html" target="_blank">
+                                <img src="../assets/images/N27.jpg" alt="${article.titre}"  class="large-image">
+                                <div class="small-image-wrapper style1">
+                                    <img src="../assets/images/video.png" alt="" class="small-image">
+                                </div>
+                                <div class="overlay style1">
+                                    <div class="articlebg">
+                                        <h2 class="article-h2">Salade de vege</h2>
+                                        <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                        <div class="info">
+                                            <span>nutrition</span>
+                                            <span><b>Time:10min</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                        </div>
+                 </div>
+          </div>
+          <div id="sesvideos">
+            <div class="flexrow"><h1>HISTORIQUES</h1><div class="plus"><a href="../pages/historiques.html" target="_blank">PLUS>>   </a></div></div>
+            <div class="flexwrap">
+                <div class="article style1">
+                    <a href="../pages/entrainement-fiche.html" target="_blank">
+                        <img src="../assets/images/D4.jpg" alt="${article.titre}"  class="large-image">
+                        <div class="small-image-wrapper style1">
+                            <img src="../assets/images/video.png" alt="" class="small-image">
+                        </div>
+                        <div class="overlay style1">
+                            <div class="articlebg">
+                                <h2 class="article-h2">Salade de vege</h2>
+                                <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                <div class="info">
+                                    <span>nutrition</span>
+                                    <span><b>Time:10min</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="article style1">
+                        <a href="../pages/entrainement-fiche.html" target="_blank">
+                            <img src="../assets/images/N18.jpg" alt="${article.titre}"  class="large-image">
+                            <div class="small-image-wrapper style1">
+                                <img src="../assets/images/video.png" alt="" class="small-image">
+                            </div>
+                            <div class="overlay style1">
+                                <div class="articlebg">
+                                    <h2 class="article-h2">Salade de vege</h2>
+                                    <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                    <div class="info">
+                                        <span>nutrition</span>
+                                        <span><b>Time:10min</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="article style1">
+                            <a href="../pages/entrainement-fiche.html" target="_blank">
+                                <img src="../assets/images/N20.jpg" alt="${article.titre}"  class="large-image">
+                                <div class="small-image-wrapper style1">
+                                    <img src="../assets/images/video.png" alt="" class="small-image">
+                                </div>
+                                <div class="overlay style1">
+                                    <div class="articlebg">
+                                        <h2 class="article-h2">Salade de vege</h2>
+                                        <h3 class="article-h3">Niveau: &#9733;&#9733;&#9733;&#9733;</h3>
+                                        <div class="info">
+                                            <span>nutrition</span>
+                                            <span><b>Time:10min</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+            </div>
+          </div>
+         </div>
+         </div>
+        </div>
+        </div>
+     </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="left">                
+                <div class="logo">
+                <div class="logo-container">
+                    <a href="../index.html"><img src="../assets/images/logo.png" alt="logo"></a>
+                </div>
+                <div class="social-media">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                </div>
+            </div>
+            <div class="center subscribe p">
+                <p>Adresse: 15 rue henri  chevreau,75011,Paris</p>
+                <p>Tel: 0467897678</p>
+                <p>Email: contact@sportfemme.com</p>
+            </div>
+            <div class="right">
+                <div class="subscribe">
+                    <h3>Abonnez vous</h3>
+                    <p>Entrez votre email ici pour recevoir des notifications</p>
+                    <form>
+                        <div class="input">
+                            <input type="email" class="inputtext">
+                            <input type="button" value="S'INSCRIRE" class="button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+               
+            </div>       
+        </div>
+        <hr>
+        <div class="copyright">
+            <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
+        </div>
+    </footer>
+    <script src="../assets/Javascript/inscription.js"></script>
+    <script src="../assets/Javascript/profil.js"></script>
+    <script src="../assets/Javascript/AuthService.js"></script>
+</body>
+</html>
+>>>>>>> 61f8f1577cd3b04242c45342950e6bd0f9843802
