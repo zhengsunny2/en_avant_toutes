@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
     @Lazy
     @Autowired
     private UserService userService;
@@ -26,24 +27,32 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+
+        HttpSession session = request.getSession();
+
+        
+        session.setAttribute("username", authentication.getName());
+        session.setAttribute("role", authentication.getAuthorities());
+
+        
+        User user = userService.findByUsername(authentication.getName());
+        if (user != null) {
+            session.setAttribute("userId", user.getId());
+        }
+
+        
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
         boolean isUser = authentication.getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_USER"));
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("username", authentication.getName()); // Ajoute le nom d'utilisateur à la session
-        session.setAttribute("role", authentication.getAuthorities());
 
         if (isAdmin) {
             response.sendRedirect("/admin");
-        } else if (isUser) {
-            User user = userService.findByUsername(authentication.getName());
-           //response.sendRedirect("/profil");
-          response.sendRedirect("/profil/" + user.getId());
+        } else if (isUser && user != null) {
+            response.sendRedirect("/profil/" + user.getId());
         } else {
-            response.sendRedirect("/login?error=true");
+            
+            response.sendRedirect("/inscription");
         }
     }
 }
-

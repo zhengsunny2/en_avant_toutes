@@ -33,7 +33,7 @@
     <main>
         <div id="logincontainer">
             <div><img src="../assets/images/img1.png" alt=""></div>
-            <form method="post" action="/login"  id="connectPage" style="display: block;">
+            <form method="post" action="/inscription"  id="connectPage" style="display: block;">
                 <h1>CONNEXION</h1>
                 <div class="page">
                 <div>
@@ -50,7 +50,7 @@
                 </div>
             </form>
     
-            <form method="post" action="/inscription/register" id="inscrirePage" style="display: none;">
+            <form method="post" id="inscrirePage" style="display: none;">
                 <h1>INSCRIRE</h1>
                 <div class="page" >
                 <div>
@@ -61,7 +61,7 @@
                     <label for="inscrirePassword">MOT DE PASS</label>
                     <input type="password" id="inscrirePassword" name="password">
                 </div>
-                <button type="button"  id="inscrireButton" class="button">S'INSCRIRE</button>
+                <button type="submit"  id="inscrireButton" class="button">S'INSCRIRE</button>
                 <a href="javascript:void(0)" id="connectpage">Retour à la connexion!</a>
                  </div>
             </div>
@@ -108,6 +108,8 @@
             <p>© 2024 [Your Name or Company]. All Rights Reserved. | Terms of Service | Privacy Policy</p>
         </div>
     </footer>
-
+    <script src="../assets/Javascript/inscription.js"></script> 
+    <script src="../assets/Javascript/head.js"></script> 
+    <script src="../assets/Javascript/auth.js"></script> 
 </body>
 </html>

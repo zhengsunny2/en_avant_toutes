@@ -48,17 +48,24 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationSuccessHandler successHandler) throws Exception {
         http.csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/error","/assets/**").permitAll()
+                .requestMatchers("/inscription","/auth/**","/login", "/error","/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
                 .requestMatchers("/profil/**","/video/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/produit/add").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login")
-                .successHandler(successHandler) // Utilisation du CustomSuccessHandler
+                .loginPage("/inscription")  
+                .loginProcessingUrl("/inscription") 
+                .successHandler(successHandler)
                 .permitAll()
             )
-            .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+            .logout(logout -> logout
+                .logoutUrl("/logout") 
+                .logoutSuccessUrl("/inscription")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+                );
     
         return http.build();
     }

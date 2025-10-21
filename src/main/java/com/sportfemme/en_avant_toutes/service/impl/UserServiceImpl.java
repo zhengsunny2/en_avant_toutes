@@ -43,7 +43,8 @@ public User registerUser(UserRegisterDTO userRegisterDTO){
         user.setPassword(hashPassword(userRegisterDTO.getPassword())); 
         user.setActive(true);
         user.setRole(userRole);
-        return userRepository.save(user);
+        userRepository.save(user); 
+        return user;
     }
 
     @Override
